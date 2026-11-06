@@ -1,11 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import {
   Archive, ArrowUpRight, BookOpen, ChevronRight, FilePlus2,
-  LayoutDashboard, Menu, ShieldCheck, X
+  LayoutDashboard, LogOut, Menu, ShieldCheck, X
 } from "lucide-react";
 
 const navigation = [
@@ -91,20 +91,66 @@ function pageTitle(pathname: string) {
 
 export function WorkspaceShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
+  const router = useRouter();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [database, setDatabase] = useState<"checking" | "connected" | "unavailable">("checking");
+  const [authStatus, setAuthStatus] = useState<"checking" | "authenticated" | "unauthenticated" | "unconfigured" | "unavailable" | "login">("checking");
   const title = useMemo(() => pageTitle(pathname), [pathname]);
 
   useEffect(() => {
     let active = true;
-    fetch("/api/health", { cache: "no-store" })
+    if (pathname === "/login") {
+      setAuthStatus("login");
+      return () => { active = false; };
+    }
+
+    setAuthStatus("checking");
+    fetch("/api/auth/session", { cache: "no-store" })
       .then(async response => {
         const payload = await response.json();
-        if (active) setDatabase(response.ok && payload.database === "connected" ? "connected" : "unavailable");
+        if (!active) return;
+        if (!payload.configured) {
+          setAuthStatus("unconfigured");
+          return;
+        }
+        if (!payload.authenticated) {
+          setAuthStatus("unauthenticated");
+          router.replace("/login");
+          return;
+        }
+        setAuthStatus("authenticated");
+        fetch("/api/health", { cache: "no-store" })
+          .then(async healthResponse => {
+            const health = await healthResponse.json();
+            if (active) setDatabase(healthResponse.ok && health.database === "connected" ? "connected" : "unavailable");
+          })
+          .catch(() => { if (active) setDatabase("unavailable"); });
       })
-      .catch(() => { if (active) setDatabase("unavailable"); });
+      .catch(() => { if (active) setAuthStatus("unavailable"); });
+
     return () => { active = false; };
-  }, []);
+  }, [pathname, router]);
+
+  async function logout() {
+    await fetch("/api/auth/logout", { method: "POST" }).catch(() => undefined);
+    setAuthStatus("unauthenticated");
+    router.replace("/login");
+  }
+
+  if (pathname === "/login") return <>{children}</>;
+
+  if (authStatus !== "authenticated") {
+    return (
+      <main className="flex min-h-screen items-center justify-center bg-[#f0f1f4] px-6">
+        <div className="w-full max-w-[430px] border border-[#dfe1e7] bg-[#fbfbfc] p-6">
+          <div className="mb-4 flex items-center gap-2 text-[9px] font-bold uppercase tracking-[.14em] text-[#365dff]"><ShieldCheck size={14}/> Private workspace</div>
+          <h1 className="font-[var(--font-space)] text-[22px] font-semibold tracking-[-.04em]">{authStatus === "unconfigured" ? "Access protection is not configured." : authStatus === "unavailable" ? "Authentication service unavailable." : "Checking workspace access…"}</h1>
+          <p className="mt-3 text-[10px] leading-[1.8] text-[#777d8b]">{authStatus === "unconfigured" ? "Set WORKSPACE_ACCESS_PASSWORD and WORKSPACE_SESSION_SECRET (at least 32 characters) in the server environment before opening this workspace." : authStatus === "unavailable" ? "The session endpoint could not be reached. Check the deployment and try again." : "A valid private workspace session is required to access business records."}</p>
+          {authStatus === "unconfigured" && <Link href="/login" className="mt-5 inline-flex h-9 items-center gap-2 bg-[#365dff] px-3 text-[10px] font-bold text-white">Open access setup <ArrowUpRight size={12}/></Link>}
+        </div>
+      </main>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-[#f0f1f4] text-[#171923]">
@@ -119,7 +165,7 @@ export function WorkspaceShell({ children }: { children: React.ReactNode }) {
               <p className="mt-1 truncate text-[12px] font-semibold tracking-[-.01em] text-[#252834]">Commercial intelligence desk</p>
             </div>
           </div>
-          <div className="flex shrink-0 items-center gap-3">
+          <div className="flex shrink-0 items-center gap-2 sm:gap-3">
             <div className="hidden items-center gap-2 border-r border-[#e0e2e8] pr-4 sm:flex">
               <span className={`size-1.5 ${database === "connected" ? "bg-[#27875a]" : database === "unavailable" ? "bg-[#d35c4b]" : "animate-pulse bg-[#bb8b39]"}`}/>
               <span className="text-[9px] font-medium text-[#656a78]">{database === "connected" ? "Database online" : database === "unavailable" ? "Database unavailable" : "Connecting"}</span>
@@ -127,6 +173,7 @@ export function WorkspaceShell({ children }: { children: React.ReactNode }) {
             <Link href="/analyzer" className="inline-flex h-9 items-center gap-2 bg-[#365dff] px-3.5 text-[10px] font-semibold text-white transition-colors hover:bg-[#274ce5]">
               <FilePlus2 size={14}/> <span className="hidden sm:inline">New request</span><span className="sm:hidden">New</span><ArrowUpRight size={12}/>
             </Link>
+            <button onClick={() => void logout()} aria-label="Sign out" title="Sign out" className="grid size-9 place-items-center border border-[#dfe1e7] bg-white text-[#606675] hover:border-[#c4514e] hover:text-[#c4514e]"><LogOut size={14}/></button>
           </div>
         </header>
         <div className="workspace-canvas">{children}</div>
