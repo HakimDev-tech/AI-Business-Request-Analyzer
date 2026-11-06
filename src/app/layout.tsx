@@ -1,11 +1,24 @@
 import type { Metadata, Viewport } from "next";
-import { DM_Sans, IBM_Plex_Mono, Space_Grotesk } from "next/font/google";
+import { IBM_Plex_Mono, Manrope, Newsreader } from "next/font/google";
 import { WorkspaceShell } from "@/components/workspace-shell";
 import "./globals.css";
 
-const dmSans = DM_Sans({ variable: "--font-dm-sans", subsets: ["latin"], display: "swap" });
-const space = Space_Grotesk({ variable: "--font-space", subsets: ["latin"], display: "swap" });
-const plexMono = IBM_Plex_Mono({ variable: "--font-plex-mono", subsets: ["latin"], weight: ["400", "500", "600"], display: "swap" });
+const manrope = Manrope({
+  variable: "--font-manrope",
+  subsets: ["latin"],
+  display: "swap",
+});
+const editorial = Newsreader({
+  variable: "--font-editorial",
+  subsets: ["latin"],
+  display: "swap",
+});
+const plexMono = IBM_Plex_Mono({
+  variable: "--font-plex-mono",
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.APP_URL || "https://ai-business-request-analyzer.vercel.app"),
@@ -26,14 +39,14 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#171923",
+  themeColor: "#193738",
   colorScheme: "light",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body className={`${dmSans.variable} ${space.variable} ${plexMono.variable} antialiased`}>
+      <body className={`${manrope.variable} ${editorial.variable} ${plexMono.variable} antialiased`}>
         <WorkspaceShell>{children}</WorkspaceShell>
       </body>
     </html>
