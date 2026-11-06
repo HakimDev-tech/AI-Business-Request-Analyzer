@@ -1,1 +1,1 @@
-import type { NextConfig } from "next"; const nextConfig: NextConfig = { serverExternalPackages: ["pg"], poweredByHeader: false }; export default nextConfig;
+import type { NextConfig } from "next"; const nextConfig: NextConfig = { serverExternalPackages: ["pg", "pdf-parse"], poweredByHeader: false }; export default nextConfig;
