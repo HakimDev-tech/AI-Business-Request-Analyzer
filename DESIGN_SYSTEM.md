@@ -1,108 +1,132 @@
-# Veyra — Signal Ledger design system
+# Veyra — Exchange Atelier design system
 
 ## Design thesis
 
-Signal Ledger treats commercial operations as a record-keeping and decision discipline, not as an AI showcase. The interface borrows its visual grammar from a precision instrument panel, a modern dispatch ledger and technical publishing: aligned columns, strong typographic hierarchy, rule-based separators and deliberate signal colors.
+Exchange Atelier takes its cues from the working language of international trade: annotated order sheets, freight documents, account books and editorial business journals. The interface should feel like a carefully built commercial instrument, not an AI playground or a generic admin template.
 
-The system is intentionally not built from soft floating cards, pastel gradients, oversized rounded corners or decorative AI motifs. Dense information should remain scannable; every status must have an operational meaning.
+The visual signature is a meeting of three elements:
+- a **route mark** that represents the path from an incoming message to a verified decision;
+- **editorial typography** for hierarchy and clear reading;
+- **operational typography and tables** for identifiers, quantities, evidence and traceability.
+
+Do not introduce gradients, glowing AI orbs, decorative assistant avatars, fake activity charts, placeholder KPIs or demo requests.
 
 ## Brand character
 
-- **Precise:** labels, units, identifiers and timestamps are explicit.
-- **Decisive:** cobalt marks primary actions and active navigation.
-- **Auditable:** each analysis links to its source message and saved record.
-- **Restrained:** coral is reserved for exceptions and critical visual punctuation.
-- **Operational:** tables and forms take precedence over ornamental dashboard widgets.
+- **Grounded:** real business records take priority over abstract AI features.
+- **Legible:** hierarchy is created through type, spacing and structure rather than decoration.
+- **Traceable:** source messages, extracted fields and evidence remain connected.
+- **Human-controlled:** AI interprets; database-backed logic verifies; an operator owns commercial approval.
+- **Distinctive:** asymmetrical corners, editorial display type, oxide accents and the paired route-line mark create a consistent identity.
 
 ## Color tokens
 
 | Token | Value | Role |
 |---|---|---|
-| Ink | #171923 | Primary text, navigation, high-contrast controls |
-| Ink soft | #242735 | Secondary dark surfaces |
-| Canvas | #F0F1F4 | Application canvas |
-| Surface | #FBFBFC | Main working surface |
-| Surface alt | #F6F7FA | Table headers and secondary areas |
-| Line | #DFE1E7 | Structural rules and separators |
-| Line strong | #C9CCD5 | Input borders |
-| Signal blue | #365DFF | Primary actions, links, active work |
-| Signal blue soft | #E9EDFF | Decision summaries and selected states |
-| Signal coral | #FF795C | Brand punctuation and exception emphasis |
-| Success | #27875A | Verified positive outcomes |
-| Warning | #B77B2D | Clarification or review states |
-| Danger | #C4514E | Stock or catalog failures |
+| Deep tide | #193738 | Sidebar, brand anchor and high-contrast surfaces |
+| Tide ink | #203A39 | Primary text |
+| Canvas mist | #EDF2EF | Workspace background |
+| Porcelain | #FFFDF9 | Main working surfaces |
+| Mist surface | #F3F7F4 | Table headers and secondary surfaces |
+| Structural line | #D6E1DC | Dividers and panel edges |
+| Line strong | #BBCEC7 | Input borders |
+| Oxide | #BC5034 | Primary action, active links and key emphasis |
+| Oxide deep | #943D2B | Pressed/hover primary action |
+| Brass | #E2AD69 | Brand punctuation and secondary emphasis |
+| Sea glass | #4E8279 | Supporting accent and selected informational states |
+| Success | #2E7858 | Verified positive outcomes |
+| Warning | #A8753C | Clarification and manual review |
+| Danger | #AD4E41 | Stock or catalog failures |
 
-Color is never the sole carrier of status: a written label always accompanies status color.
+Color must never be the sole carrier of status. Every status includes a written label and, where useful, an icon.
 
 ## Typography
 
-- **Space Grotesk:** page titles, key figures and high-level hierarchy.
-- **DM Sans:** application text, form labels, explanatory copy and tables.
-- **IBM Plex Mono:** identifiers, SKU values, quantities, technical labels and system metadata.
+- **Newsreader:** page headlines, editorial statements and selected high-level figures. Use moderate weights and avoid oversized, all-caps headings.
+- **Manrope:** interface copy, forms, buttons, labels and navigation.
+- **IBM Plex Mono:** SKUs, record IDs, quantities, technical labels, timestamps and system metadata.
 
-Use tabular numerals for quantities. Keep metadata compact, but never below a readable 8–9 px visual size on desktop; core interface text should normally be 10–12 px or larger.
+Use tabular numerals for quantities. Secondary metadata may be compact, but core interface text must remain comfortably readable. Do not use mono for paragraphs.
 
-## Layout and geometry
+## Geometry and composition
 
-- Desktop navigation rail: 232 px.
-- Global top bar: 65 px.
-- Content maximum width: 1600 px.
-- Spacing follows a 4 px base rhythm, with 8 px increments preferred for major grouping.
-- Structural corners are square. Small controls may use no more than a 2–3 px radius where needed for focus clarity.
-- Separators are 1 px. Avoid soft shadows; use contrast and alignment to establish hierarchy.
-- Tables remain horizontally scrollable on narrow viewports.
+- Desktop navigation: 248 px fixed rail, dark tidal surface.
+- Header: 68 px, persistent and restrained.
+- Main content: max-width 1580 px with responsive gutters.
+- Panels use a subtle asymmetrical corner pair (15 px / 3 px); controls use smaller, related geometry.
+- Primary actions use oxide fill, modest corner asymmetry and clear pressed/disabled states.
+- The page canvas uses a faint point field only as a quiet structural texture. It must never interfere with text or data.
+- Tables remain horizontally scrollable on narrow screens.
+- Do not put every individual datum in a floating card. Prefer grouped fields, tables and clear section dividers.
 
-## Component rules
+## Navigation and shell
 
-### Navigation
-The sidebar contains real routes only. The active route is indicated by a coral edge and a blue icon. The database indicator must be backed by the health endpoint and must not display a permanently green state.
+The sidebar only contains real routes:
+- Operations overview
+- Request archive
+- New request
+- Products & knowledge
+
+Active navigation uses a brass marker and a restrained tinted surface. The database state in the header must be sourced from the health endpoint and must distinguish checking, connected and unavailable states. Sign-out must call the real logout endpoint.
+
+Mobile navigation becomes a full-height overlay with an accessible close control. Do not render hidden desktop navigation items as dead mobile buttons.
+
+## Components
 
 ### Buttons
-Primary buttons are cobalt with white text. Secondary actions are white with a structural border. Ghost actions remain visually quiet. Destructive actions use danger styling. Every button has hover, focus-visible, active and disabled states.
+- Primary: oxide fill and white text.
+- Secondary: porcelain surface and structural border.
+- Ghost: quiet text action, with a visible hover surface.
+- Danger: pale warm surface and danger text.
+Every button has hover, focus-visible, active and disabled states. An action must correspond to a real operation.
 
 ### Forms
-Inputs have square geometry, explicit labels and visible focus treatment. Validation errors appear next to the relevant interaction. Submit buttons indicate in-progress states and prevent duplicate submissions.
+Inputs use explicit labels, a visible focus ring and the same asymmetrical geometry as buttons. Validation errors appear near the relevant field or form. Submit controls prevent duplicate submissions and communicate in-progress state.
 
 ### Tables
-Operational data uses tables before cards. Use concise column names, aligned numeric data and written outcome labels. Row actions must navigate to a real record.
+Operational records use semantic tables before decorative charts. Use concise column labels, aligned numeric values and text-based outcomes. Row links must navigate to the correct saved record.
 
 ### Statuses
 - Ready for quotation: success.
 - Clarification required / manual review: warning.
 - Insufficient stock / no catalog match: danger.
-Unknown statuses use a neutral treatment; never silently map unknown states to success.
+- Unknown states: neutral.
+Never silently map an unknown status to success.
 
-### Empty and loading states
-An empty database is represented honestly. Do not preload sample messages, fake requests, simulated charts or invented usage metrics. Loading and error states must reflect actual network operations.
+### Empty, loading and error states
+An empty database is represented honestly. No sample customer messages, fake records, synthetic metrics or illustrative inventory are loaded automatically. Loading and error states must correspond to actual network operations and expose a recovery action when available.
 
-## Motion and accessibility
+## Product integrity
 
-- Keep transitions short and functional (roughly 120–180 ms).
-- Respect the reduced-motion preference.
-- Use semantic headings, landmarks, labels and table structures.
+1. The overview reads metrics from the PostgreSQL-backed workspace API.
+2. Request history displays only persisted analyses.
+3. A saved request keeps the original customer message, extracted structure and decision payload.
+4. Catalog items and stock quantities are read from and written to the product/inventory APIs.
+5. Knowledge documents display actual ingestion state and chunk counts.
+6. Database connectivity is based on the health endpoint; never show a permanent green state.
+7. The analyzer starts empty. The operator supplies the real customer message.
+8. No UI control should imply that a workflow exists when there is no server-side implementation.
+9. The current shared-password gate is a private-instance access control, not a substitute for individual accounts, roles or tenant isolation.
+10. Do not claim public multi-customer SaaS readiness until tenant isolation, authorization, rate limiting, monitoring, recovery and end-to-end tests are in place.
+
+## Accessibility and responsive behavior
+
+- Use semantic landmarks, headings, labels and table structures.
 - All icon-only controls require accessible names.
-- Maintain visible keyboard focus.
-- Ensure text contrast remains strong across neutral and signal surfaces.
+- Maintain visible keyboard focus and strong contrast.
+- Respect reduced-motion preferences.
+- Sidebar, tables, long IDs and forms must remain usable on small screens.
 
-## Product integrity rules
+## Implementation map
 
-1. The dashboard reads its metrics from PostgreSQL-backed APIs.
-2. Request history contains only persisted analyses.
-3. A request record preserves the original customer message and the structured result.
-4. Product quantities are read from and written to the inventory table.
-5. Knowledge documents display actual ingestion status and chunk counts.
-6. A disconnected database is shown as unavailable, never as connected.
-7. Do not add non-functional navigation items or buttons.
-8. Do not label the application production-ready until authentication, tenant isolation, authorization, rate limiting, operational monitoring and end-to-end tests are complete.
-
-## Implementation
-
-- Global tokens and layout primitives: src/app/globals.css
-- Typography, metadata and application shell: src/app/layout.tsx, src/components/workspace-shell.tsx
-- Brand mark and browser icon: src/components/workspace-shell.tsx, src/app/icon.svg
-- Shared buttons: src/components/ui/button.tsx
-- Operational overview: src/components/workspace-dashboard.tsx
-- Request analysis: src/components/analyzer-workspace.tsx
-- Request archive and records: src/components/request-history.tsx, src/components/request-detail.tsx
-- Product and inventory register: src/components/product-catalog-panel.tsx
-- Document ingestion: src/components/catalog-ingest-panel.tsx
+- Tokens, layout primitives and responsive rules: `src/app/globals.css`
+- Fonts, metadata and viewport: `src/app/layout.tsx`
+- Application navigation and access state: `src/components/workspace-shell.tsx`
+- Brand mark and favicon: `src/components/workspace-shell.tsx`, `src/app/icon.svg`
+- Buttons: `src/components/ui/button.tsx`
+- Overview: `src/components/workspace-dashboard.tsx`
+- Request analysis: `src/components/analyzer-workspace.tsx`
+- Request archive and saved records: `src/components/request-history.tsx`, `src/components/request-detail.tsx`
+- Product/inventory and knowledge sources: `src/components/product-catalog-panel.tsx`, `src/components/catalog-ingest-panel.tsx`
+- Public product page: `src/app/product/page.tsx`
+- Private access: `src/components/workspace-login.tsx`
