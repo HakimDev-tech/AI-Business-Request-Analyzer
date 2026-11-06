@@ -11,7 +11,7 @@ Next.js + TypeScript + Tailwind + shadcn-compatible UI, Gemini, Zod, Neon Postgr
 6. Context: conversation history, orchestration, persistence and Vitest tests.
 
 ## Setup
-Node.js >=20.9 (Node 22 LTS recommended). Run `npm install`, copy `.env.example` to `.env.local`, add your Gemini API key and Neon development-branch DATABASE_URL, then run `npm run db:migrate`, `npm run db:seed`, and `npm run dev`.
+Node.js >=22.3 (Node 22 LTS recommended for the PDF parser and current SDK stack). Run `npm install`, copy `.env.example` to `.env.local`, add your Gemini API key and Neon development-branch DATABASE_URL, then run `npm run db:migrate`, `npm run db:seed`, and `npm run dev`.
 
 Never commit secrets or expose them through NEXT_PUBLIC variables. `POST /api/catalog` indexes plain text/CSV/JSON content; PDF/DOCX parsing and document upload UI remain follow-up work.
 
