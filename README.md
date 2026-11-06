@@ -9,6 +9,7 @@ A commercial workspace for processing B2B customer requests, matching products, 
 - **Request history (/requests):** search and filter persisted analyses.
 - **Request record (/requests/[id]):** inspect the source message, extracted fields, decision rationale, catalog matches, stock checks and retrieved evidence.
 - **Catalog & inventory (/catalog):** create product records, set initial stock, update available quantities and manage knowledge documents.
+- **Public product page (/product):** indexable product information, capability descriptions, FAQ and SoftwareApplication structured data.
 - **Private access (/login):** shared workspace password with a signed, expiring, HTTP-only session cookie.
 
 ## Core stack
@@ -60,6 +61,10 @@ The current login is a **shared-password gate for a private pilot**, not a user 
 Request records, conversations, products, inventory, documents and vector chunks are stored in PostgreSQL. Each analysis starts a distinct conversation and is persisted with its original customer message. Catalog and stock outcomes are derived from database queries and deterministic application rules; the language model does not invent inventory availability.
 
 Documents can be uploaded as TXT, MD, CSV, JSON, PDF or DOCX (maximum 10 MB). Extracted text is chunked and embedded for semantic retrieval. Product records can be created and stock quantities can be updated from the catalog workspace.
+
+## Search and answer-engine discovery
+
+The public product page is the only indexable product surface. It includes a canonical URL, Open Graph metadata, SoftwareApplication JSON-LD, a sitemap entry and crawler rules that keep application and API routes out of discovery. Configure APP_URL to the canonical public origin before launch. No private dashboard or customer data should be indexed.
 
 ## Visual system
 
