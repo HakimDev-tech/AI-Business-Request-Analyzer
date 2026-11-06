@@ -20,6 +20,7 @@ type Payload = {
   success: boolean;
   metrics: { total: number; ready: number; clarification: number; review: number; stock_issues: number; no_match: number };
   documents: { total: number; indexed: number; chunks: number };
+  catalog: { products: number; stock_units: number };
   requests: RequestRow[];
 };
 
@@ -96,10 +97,11 @@ export function WorkspaceDashboard() {
 
       {error && <div role="alert" className="mb-5 flex items-center justify-between border border-[#f0d1ce] bg-[#fff8f7] px-4 py-3 text-[11px] text-[#a84b49]"><span>{error}</span><button onClick={() => void load()} className="font-bold underline">Retry</button></div>}
 
-      <div className="mb-6 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+      <div className="mb-6 grid gap-3 sm:grid-cols-2 xl:grid-cols-5">
         <div className="stat-tile"><p className="stat-label">Requests analyzed</p><p className="stat-value">{loading ? "—" : metrics?.total ?? 0}</p><p className="mt-2 text-[9px] text-[#8b909d]">Persisted request records</p></div>
         <div className="stat-tile"><p className="stat-label">Ready for quotation</p><p className="stat-value text-[#365dff]">{loading ? "—" : metrics?.ready ?? 0}</p><p className="mt-2 text-[9px] text-[#8b909d]">Catalog and stock checks passed</p></div>
         <div className="stat-tile"><p className="stat-label">Needs attention</p><p className="stat-value text-[#b77b2d]">{loading ? "—" : reviewCount}</p><p className="mt-2 text-[9px] text-[#8b909d]">Clarification, review or stock issue</p></div>
+        <div className="stat-tile"><p className="stat-label">Active products</p><p className="stat-value">{loading ? "—" : data?.catalog.products ?? 0}</p><p className="mt-2 text-[9px] text-[#8b909d]">{data?.catalog.stock_units ?? 0} available units</p></div>
         <div className="stat-tile"><p className="stat-label">Indexed documents</p><p className="stat-value">{loading ? "—" : data?.documents.indexed ?? 0}</p><p className="mt-2 text-[9px] text-[#8b909d]">{data?.documents.chunks ?? 0} searchable chunks</p></div>
       </div>
 
