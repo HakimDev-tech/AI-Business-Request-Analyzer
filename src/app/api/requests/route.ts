@@ -1,11 +1,15 @@
 import { NextResponse } from "next/server";
 import { getDb } from "@/db/client";
 import { getEnv } from "@/config/env";
+import { workspaceRequestAuthorized } from "@/lib/workspace-auth";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 export async function GET(request: Request) {
+  if (!workspaceRequestAuthorized(request)) {
+    return NextResponse.json({ success: false, error: "Authentication required" }, { status: 401 });
+  }
   try {
     const url = new URL(request.url);
     const rawLimit = Number(url.searchParams.get("limit") ?? 30);
