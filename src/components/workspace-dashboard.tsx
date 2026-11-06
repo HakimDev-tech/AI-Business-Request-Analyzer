@@ -3,8 +3,7 @@
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import {
-  Activity, ArrowRight, ArrowUpRight, CheckCircle2, Clock3,
-  FileSearch, Layers3, PackageCheck, RefreshCw, ShieldAlert
+  Activity, ArrowRight, ArrowUpRight, FileSearch, Layers3, RefreshCw, ShieldAlert
 } from "lucide-react";
 
 type RequestRow = {
