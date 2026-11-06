@@ -9,24 +9,26 @@ import {
 } from "lucide-react";
 
 const navigation = [
-  { href: "/", label: "Overview", icon: LayoutDashboard },
-  { href: "/requests", label: "Request history", icon: Archive },
-  { href: "/analyzer", label: "New analysis", icon: FilePlus2 },
-  { href: "/catalog", label: "Catalog & inventory", icon: BookOpen },
+  { href: "/", label: "Operations overview", icon: LayoutDashboard, index: "01" },
+  { href: "/requests", label: "Request archive", icon: Archive, index: "02" },
+  { href: "/analyzer", label: "New request", icon: FilePlus2, index: "03" },
+  { href: "/catalog", label: "Products & knowledge", icon: BookOpen, index: "04" },
 ];
 
 function Brand() {
   return (
-    <Link href="/" className="flex items-center gap-3 px-1" aria-label="Veyra overview">
-      <span className="signal-mark grid size-9 shrink-0 place-items-center bg-[#365dff] text-white">
-        <svg viewBox="0 0 28 28" width="22" height="22" fill="none" aria-hidden="true">
-          <path d="M4 5h7l7 18h6L17 5h7" stroke="currentColor" strokeWidth="2.3" strokeLinecap="square"/>
-          <path d="M4 23h5" stroke="#ff795c" strokeWidth="2.3"/>
+    <Link href="/" className="veyra-brand" aria-label="Veyra operations overview">
+      <span className="veyra-brand-mark">
+        <svg viewBox="0 0 28 28" width="23" height="23" fill="none" aria-hidden="true">
+          <path d="M4 7h6.1c3.9 0 4.1 7 7.9 7H24" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+          <path d="M4 21h6.1c3.9 0 4.1-7 7.9-7H24" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+          <circle cx="4" cy="7" r="2" fill="#bc5034"/>
+          <circle cx="24" cy="21" r="2" fill="#bc5034"/>
         </svg>
       </span>
       <span className="min-w-0">
-        <span className="block text-[16px] font-bold leading-none tracking-[-.055em] text-white">VEYRA<span className="text-[#ff795c]">/</span></span>
-        <span className="mt-1 block text-[8px] font-semibold uppercase tracking-[.19em] text-[#9296a3]">Commercial operations</span>
+        <span className="veyra-brand-name">VEYRA<span style={{ color: "#e2ad69" }}>·</span></span>
+        <span className="block veyra-brand-sub">Trade operations</span>
       </span>
     </Link>
   );
@@ -35,10 +37,10 @@ function Brand() {
 function NavItems({ onNavigate }: { onNavigate?: () => void }) {
   const pathname = usePathname();
   return (
-    <nav aria-label="Main navigation" className="mt-10">
-      <p className="mb-3 px-3 font-mono text-[9px] font-medium uppercase tracking-[.16em] text-[#777d8d]">Operate</p>
+    <nav aria-label="Main navigation" className="veyra-nav">
+      <p className="veyra-nav-label">Commercial workspace</p>
       <div className="space-y-1">
-        {navigation.map(({ href, label, icon: Icon }) => {
+        {navigation.map(({ href, label, icon: Icon, index }) => {
           const active = href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(href + "/");
           return (
             <Link
@@ -46,11 +48,11 @@ function NavItems({ onNavigate }: { onNavigate?: () => void }) {
               href={href}
               onClick={onNavigate}
               aria-current={active ? "page" : undefined}
-              className={`group relative flex h-11 items-center gap-3 border-l-[3px] px-3 text-[12px] font-medium transition-colors ${active ? "border-[#ff795c] bg-white/[.085] text-white" : "border-transparent text-[#a6aab5] hover:bg-white/[.05] hover:text-white"}`}
+              className="veyra-nav-link"
             >
-              <Icon size={16} strokeWidth={1.8} className={active ? "text-[#8da4ff]" : "text-[#858b9b] group-hover:text-white"}/>
+              <Icon size={16} strokeWidth={1.8} className="veyra-nav-icon"/>
               <span>{label}</span>
-              {active && <ChevronRight size={13} className="ml-auto text-[#ff795c]"/>}
+              <span className="veyra-nav-index">{index}</span>
             </Link>
           );
         })}
@@ -61,32 +63,33 @@ function NavItems({ onNavigate }: { onNavigate?: () => void }) {
 
 function Sidebar({ mobile = false, onClose }: { mobile?: boolean; onClose?: () => void }) {
   return (
-    <aside className={mobile
-      ? "fixed inset-0 z-50 flex w-full flex-col bg-[#171923] px-5 py-5 text-white lg:hidden"
-      : "fixed inset-y-0 left-0 z-30 hidden w-[232px] flex-col border-r border-white/[.06] bg-[#171923] px-4 py-6 text-white lg:flex"}>
+    <aside className={mobile ? "veyra-sidebar veyra-mobile-overlay" : "veyra-sidebar hidden lg:flex"}>
       <div className="flex items-center justify-between">
         <Brand/>
-        {mobile && <button onClick={onClose} className="grid size-9 place-items-center border border-white/15 text-[#c6cad3]" aria-label="Close menu"><X size={17}/></button>}
+        {mobile && (
+          <button onClick={onClose} className="grid size-9 place-items-center rounded-[9px_2px_9px_2px] border border-white/15 text-[#d7e2de]" aria-label="Close menu">
+            <X size={17}/>
+          </button>
+        )}
       </div>
       <NavItems onNavigate={onClose}/>
-      <div className="mt-auto">
-        <div className="border border-white/10 bg-white/[.035] p-3.5">
-          <div className="flex items-center gap-2 text-[9px] font-semibold uppercase tracking-[.14em] text-[#abb0bd]"><ShieldCheck size={13} className="text-[#8da4ff]"/> Decision controls</div>
-          <p className="mt-2 text-[10px] leading-[1.7] text-[#8d93a1]">AI extraction is reviewed against catalog records and inventory data before a commercial decision is returned.</p>
+      <div className="veyra-sidebar-bottom">
+        <div className="veyra-principle">
+          <div className="veyra-principle-kicker"><ShieldCheck size={13} className="text-[#e2ad69]"/> Decision discipline</div>
+          <p className="veyra-principle-copy">Interpret the request. Verify the facts. Keep the record.</p>
+          <p className="veyra-principle-steps">AI / STRUCTURE<br/>DATA / VALIDATE<br/>OPERATOR / APPROVE</p>
         </div>
-        <div className="mt-5 flex items-center justify-between px-1 font-mono text-[8px] uppercase tracking-[.12em] text-[#727888]">
-          <span>VEYRA WORKSPACE</span><span>0.2.0</span>
-        </div>
+        <div className="veyra-sidebar-foot"><span>VEYRA / PRIVATE DESK</span><span>0.3</span></div>
       </div>
     </aside>
   );
 }
 
 function pageTitle(pathname: string) {
-  if (pathname.startsWith("/analyzer")) return "New analysis";
-  if (pathname.startsWith("/requests")) return "Request history";
-  if (pathname.startsWith("/catalog")) return "Catalog & inventory";
-  return "Overview";
+  if (pathname.startsWith("/analyzer")) return "New request";
+  if (pathname.startsWith("/requests")) return "Request archive";
+  if (pathname.startsWith("/catalog")) return "Products & knowledge";
+  return "Operations overview";
 }
 
 export function WorkspaceShell({ children }: { children: React.ReactNode }) {
@@ -136,45 +139,53 @@ export function WorkspaceShell({ children }: { children: React.ReactNode }) {
 
   if (authStatus !== "authenticated") {
     return (
-      <main className="flex min-h-screen items-center justify-center bg-[#f0f1f4] px-6">
-        <div className="w-full max-w-[430px] border border-[#dfe1e7] bg-[#fbfbfc] p-6">
-          <div className="mb-4 flex items-center gap-2 text-[9px] font-bold uppercase tracking-[.14em] text-[#365dff]"><ShieldCheck size={14}/> Private workspace</div>
-          <h1 className="font-[var(--font-space)] text-[22px] font-semibold tracking-[-.04em]">{authStatus === "unconfigured" ? "Access protection is not configured." : authStatus === "unavailable" ? "Authentication service unavailable." : "Checking workspace access…"}</h1>
-          <p className="mt-3 text-[10px] leading-[1.8] text-[#777d8b]">{authStatus === "unconfigured" ? "Set WORKSPACE_ACCESS_PASSWORD and WORKSPACE_SESSION_SECRET (at least 32 characters) in the server environment before opening this workspace." : authStatus === "unavailable" ? "The session endpoint could not be reached. Check the deployment and try again." : "A valid private workspace session is required to access business records."}</p>
-          {authStatus === "unconfigured" && <Link href="/login" className="mt-5 inline-flex h-9 items-center gap-2 bg-[#365dff] px-3 text-[10px] font-bold text-white">Open access setup <ArrowUpRight size={12}/></Link>}
+      <main className="veyra-access">
+        <div className="veyra-access-card">
+          <div className="flex items-center gap-2 text-[9px] font-bold uppercase tracking-[.14em] text-[#bc5034]">
+            <ShieldCheck size={14}/> Private workspace
+          </div>
+          <h1 className="veyra-access-title">
+            {authStatus === "unconfigured" ? "Access protection is not configured." : authStatus === "unavailable" ? "Authentication service unavailable." : "Checking workspace access…"}
+          </h1>
+          <p className="veyra-access-copy">
+            {authStatus === "unconfigured" ? "Set WORKSPACE_ACCESS_PASSWORD and WORKSPACE_SESSION_SECRET (at least 32 characters) in the server environment before opening this workspace." : authStatus === "unavailable" ? "The session endpoint could not be reached. Check the deployment and try again." : "A valid private workspace session is required to access business records."}
+          </p>
+          {authStatus === "unconfigured" && <Link href="/login" className="veyra-new-request mt-5">Open access setup <ArrowUpRight size={12}/></Link>}
         </div>
       </main>
     );
   }
 
   return (
-    <div className="min-h-screen bg-[#f0f1f4] text-[#171923]">
+    <div className="veyra-shell">
       <Sidebar/>
       {mobileOpen && <Sidebar mobile onClose={() => setMobileOpen(false)}/>}
-      <div className="min-h-screen lg:pl-[232px]">
-        <header className="sticky top-0 z-20 flex h-[65px] items-center justify-between border-b border-[#dfe1e7] bg-[#fbfbfc]/95 px-4 backdrop-blur-lg sm:px-7">
+      <div className="veyra-main">
+        <header className="veyra-header">
           <div className="flex min-w-0 items-center gap-3">
-            <button onClick={() => setMobileOpen(true)} className="grid size-9 shrink-0 place-items-center border border-[#dfe1e7] bg-white text-[#353947] lg:hidden" aria-label="Open menu"><Menu size={17}/></button>
+            <button onClick={() => setMobileOpen(true)} className="veyra-header-mobile-menu lg:hidden" aria-label="Open navigation">
+              <Menu size={17}/>
+            </button>
             <div className="min-w-0">
-              <div className="flex items-center gap-2 text-[9px] font-semibold uppercase tracking-[.15em] text-[#8b8f9c]"><span>Workspace</span><span className="text-[#c2c5cd]">/</span><span className="truncate text-[#343846]">{title}</span></div>
-              <p className="mt-1 truncate text-[12px] font-semibold tracking-[-.01em] text-[#252834]">Commercial intelligence desk</p>
+              <div className="veyra-header-crumb">VEYRA <span className="px-1.5 text-[#c3d1ca]">/</span> {title}</div>
+              <p className="veyra-header-title">Commercial operations desk</p>
             </div>
           </div>
-          <div className="flex shrink-0 items-center gap-2 sm:gap-3">
-            <div className="hidden items-center gap-2 border-r border-[#e0e2e8] pr-4 sm:flex">
-              <span className={`size-1.5 ${database === "connected" ? "bg-[#27875a]" : database === "unavailable" ? "bg-[#d35c4b]" : "animate-pulse bg-[#bb8b39]"}`}/>
-              <span className="text-[9px] font-medium text-[#656a78]">{database === "connected" ? "Database online" : database === "unavailable" ? "Database unavailable" : "Connecting"}</span>
+          <div className="veyra-header-actions">
+            <div className="veyra-db-state">
+              <span className="veyra-db-lamp" data-state={database}/>
+              <span>{database === "connected" ? "Records connected" : database === "unavailable" ? "Records unavailable" : "Checking records"}</span>
             </div>
-            <Link href="/analyzer" className="inline-flex h-9 items-center gap-2 bg-[#365dff] px-3.5 text-[10px] font-semibold text-white transition-colors hover:bg-[#274ce5]">
+            <Link href="/analyzer" className="veyra-new-request">
               <FilePlus2 size={14}/> <span className="hidden sm:inline">New request</span><span className="sm:hidden">New</span><ArrowUpRight size={12}/>
             </Link>
-            <button onClick={() => void logout()} aria-label="Sign out" title="Sign out" className="grid size-9 place-items-center border border-[#dfe1e7] bg-white text-[#606675] hover:border-[#c4514e] hover:text-[#c4514e]"><LogOut size={14}/></button>
+            <button onClick={() => void logout()} aria-label="Sign out" title="Sign out" className="veyra-signout"><LogOut size={14}/></button>
           </div>
         </header>
         <div className="workspace-canvas">{children}</div>
-        <footer className="flex flex-col justify-between gap-2 border-t border-[#dfe1e7] px-5 py-4 text-[8px] font-medium uppercase tracking-[.13em] text-[#969aa5] sm:flex-row sm:px-8">
-          <span>VEYRA / COMMERCIAL INTELLIGENCE</span>
-          <span>AI-assisted extraction · Database-verified operations</span>
+        <footer className="veyra-main-footer">
+          <span>VEYRA / COMMERCIAL WORKFLOW</span>
+          <span>Human approval remains part of the process</span>
         </footer>
       </div>
     </div>
