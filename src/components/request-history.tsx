@@ -86,24 +86,24 @@ export function RequestHistory() {
           <h1 className="page-title">Request history.</h1>
           <p className="page-intro mt-3">Search and review saved analyses. Each record contains the original message, extracted fields, decision and evidence returned by the processing workflow.</p>
         </div>
-        <button onClick={() => void load()} disabled={loading} className="inline-flex h-9 items-center gap-2 self-start border border-[#d5d8e0] bg-white px-3 text-[10px] font-bold text-[#555b69] hover:border-[#365dff] hover:text-[#365dff] disabled:opacity-50"><RefreshCw size={13} className={loading ? "animate-spin" : ""}/> Refresh records</button>
+        <button onClick={() => void load()} disabled={loading} className="inline-flex h-9 items-center gap-2 self-start border border-[#d0dcd7] bg-white px-3 text-[10px] font-bold text-[#526660] hover:border-[#bc5034] hover:text-[#bc5034] disabled:opacity-50"><RefreshCw size={13} className={loading ? "animate-spin" : ""}/> Refresh records</button>
       </div>
 
       <section className="ui-panel">
         <div className="ui-panel-header">
-          <div><p className="page-kicker">Saved data / 001</p><h2 className="ui-panel-title mt-1.5">Analyzed requests <span className="mono ml-1 text-[9px] font-medium text-[#8c91a0]">{requests.length}</span></h2></div>
-          <span className="inline-flex items-center gap-1.5 text-[9px] font-semibold text-[#737988]"><Archive size={13}/> Database records</span>
+          <div><p className="page-kicker">Saved data / 001</p><h2 className="ui-panel-title mt-1.5">Analyzed requests <span className="mono ml-1 text-[9px] font-medium text-[#899a94]">{requests.length}</span></h2></div>
+          <span className="inline-flex items-center gap-1.5 text-[9px] font-semibold text-[#6b7d77]"><Archive size={13}/> Database records</span>
         </div>
-        <div className="flex flex-col gap-3 border-b border-[#e1e3e9] bg-[#f7f8fa] p-4 md:flex-row md:items-center">
+        <div className="flex flex-col gap-3 border-b border-[#d8e2de] bg-[#f7f8fa] p-4 md:flex-row md:items-center">
           <label className="relative min-w-0 flex-1">
             <span className="sr-only">Search requests</span>
-            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#9297a2]"/>
-            <input value={search} onChange={event => setSearch(event.target.value)} placeholder="Search summary, product, destination or record ID…" className="h-9 w-full border border-[#dfe1e7] bg-white pl-9 pr-3 text-[10px] outline-none focus:border-[#365dff]"/>
+            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#879a94]"/>
+            <input value={search} onChange={event => setSearch(event.target.value)} placeholder="Search summary, product, destination or record ID…" className="h-9 w-full border border-[#d6e1dc] bg-white pl-9 pr-3 text-[10px] outline-none focus:border-[#bc5034]"/>
           </label>
           <label className="flex items-center gap-2 text-[9px] font-bold text-[#757b89]">
             <SlidersHorizontal size={13}/>
             <span>Outcome</span>
-            <select value={decision} onChange={event => setDecision(event.target.value)} className="h-9 border border-[#dfe1e7] bg-white px-3 text-[10px] font-medium text-[#3b4050] outline-none focus:border-[#365dff]">
+            <select value={decision} onChange={event => setDecision(event.target.value)} className="h-9 border border-[#d6e1dc] bg-white px-3 text-[10px] font-medium text-[#3b4050] outline-none focus:border-[#bc5034]">
               <option value="all">All outcomes</option>
               <option value="ready_for_quote">Ready for quotation</option>
               <option value="needs_clarification">Needs clarification</option>
@@ -114,27 +114,27 @@ export function RequestHistory() {
           </label>
         </div>
 
-        {error && <div role="alert" className="m-4 border border-[#f0d1ce] bg-[#fff7f6] p-3 text-[10px] text-[#a84b49]">{error} <button onClick={() => void load()} className="ml-2 font-bold underline">Retry</button></div>}
+        {error && <div role="alert" className="m-4 border border-[#f0d9d0] bg-[#fff7f6] p-3 text-[10px] text-[#a94f3e]">{error} <button onClick={() => void load()} className="ml-2 font-bold underline">Retry</button></div>}
 
-        {loading ? <div className="empty-state"><RefreshCw size={17} className="animate-spin text-[#365dff]"/><p className="mt-3 text-[10px] text-[#888e9a]">Loading request records…</p></div>
+        {loading ? <div className="empty-state"><RefreshCw size={17} className="animate-spin text-[#bc5034]"/><p className="mt-3 text-[10px] text-[#869790]">Loading request records…</p></div>
         : filtered.length ? <div className="overflow-x-auto">
           <table className="data-table">
             <thead><tr><th>Record</th><th>Product / Qty</th><th>Destination</th><th>Decision</th><th>Created</th><th></th></tr></thead>
             <tbody>{filtered.map(item => <tr key={item.id}>
-              <td className="min-w-[230px]"><Link href={"/requests/" + item.id} className="block max-w-[360px] truncate font-bold text-[#292e3b] hover:text-[#365dff]">{item.summary || "Unlabelled request"}</Link><span className="mono mt-1 block text-[8px] text-[#a0a4ae]">{item.id.toUpperCase()}</span></td>
-              <td className="min-w-[120px]">{item.product || "—"}{item.quantity ? <span className="mono ml-1 text-[9px] text-[#888e9a]">×{item.quantity}</span> : null}</td>
+              <td className="min-w-[230px]"><Link href={"/requests/" + item.id} className="block max-w-[360px] truncate font-bold text-[#29413e] hover:text-[#bc5034]">{item.summary || "Unlabelled request"}</Link><span className="mono mt-1 block text-[8px] text-[#8b9a94]">{item.id.toUpperCase()}</span></td>
+              <td className="min-w-[120px]">{item.product || "—"}{item.quantity ? <span className="mono ml-1 text-[9px] text-[#869790]">×{item.quantity}</span> : null}</td>
               <td className="min-w-[100px]">{item.destination || "—"}</td>
               <td><span className={tag(item.decision)}>{labels[item.decision] ?? item.decision}</span></td>
               <td className="min-w-[125px] whitespace-nowrap text-[9px] text-[#7d8390]">{new Intl.DateTimeFormat(undefined,{dateStyle:"medium",timeStyle:"short"}).format(new Date(item.created_at))}</td>
-              <td><Link href={"/requests/" + item.id} className="grid size-7 place-items-center border border-[#e0e2e8] bg-white text-[#777d8b] hover:border-[#365dff] hover:text-[#365dff]" aria-label="Open record"><ArrowUpRight size={13}/></Link></td>
+              <td><Link href={"/requests/" + item.id} className="grid size-7 place-items-center border border-[#d6e1dc] bg-white text-[#6b7d77] hover:border-[#bc5034] hover:text-[#bc5034]" aria-label="Open record"><ArrowUpRight size={13}/></Link></td>
             </tr>)}</tbody>
           </table>
         </div> : <div className="empty-state">
           <span className="empty-symbol"><FileSearch size={18}/></span>
           <p className="mt-4 text-[12px] font-bold">{requests.length ? "No records match these filters" : "No saved request records"}</p>
-          <p className="mt-2 max-w-[300px] text-[10px] leading-[1.7] text-[#8d93a0]">{requests.length ? "Adjust the search phrase or outcome filter." : "Analyses will appear here after you submit a customer message. No example records are inserted."}</p>
+          <p className="mt-2 max-w-[300px] text-[10px] leading-[1.7] text-[#899a94]">{requests.length ? "Adjust the search phrase or outcome filter." : "Analyses will appear here after you submit a customer message. No example records are inserted."}</p>
         </div>}
-        {!loading && <div className="flex flex-col justify-between gap-2 border-t border-[#e1e3e9] bg-[#f7f8fa] px-4 py-3 text-[9px] text-[#858b98] sm:flex-row"><span>Showing {filtered.length} of {requests.length} loaded records</span><span>Most recent records first · Maximum 100 per load</span></div>}
+        {!loading && <div className="flex flex-col justify-between gap-2 border-t border-[#d8e2de] bg-[#f7f8fa] px-4 py-3 text-[9px] text-[#858b98] sm:flex-row"><span>Showing {filtered.length} of {requests.length} loaded records</span><span>Most recent records first · Maximum 100 per load</span></div>}
       </section>
     </main>
   );
