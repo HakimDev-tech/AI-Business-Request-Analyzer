@@ -37,7 +37,7 @@ export function CatalogIngestPanel() {
           <div><label className="mb-2 block text-[11px] font-medium text-slate-600" htmlFor="doc-title">Document title</label><input id="doc-title" value={title} onChange={e=>setTitle(e.target.value)} placeholder="e.g. Product catalog Q4" className="h-11 w-full rounded-xl border border-slate-200 bg-white px-3 text-sm outline-none focus:border-indigo-300"/></div>
           <div><label className="mb-2 block text-[11px] font-medium text-slate-600" htmlFor="doc-file">Choose file <span className="font-normal text-slate-400">· TXT, MD, CSV, JSON, PDF, DOCX · max 10 MB</span></label><input id="doc-file" type="file" accept=".txt,.md,.csv,.json,.pdf,.docx" onChange={e=>setFile(e.target.files?.[0]??null)} className="block h-11 w-full rounded-xl border border-slate-200 bg-white p-2 text-xs text-slate-600 file:mr-3 file:rounded-lg file:border-0 file:bg-slate-100 file:px-3 file:py-1.5 file:text-xs file:font-medium"/></div>
           <Button onClick={upload} disabled={!file||loading}>{loading?<LoaderCircle size={15} className="animate-spin"/>:<FileUp size={15}/>}Index document</Button>
-          {status&&<p className={`flex items-center gap-2 text-xs md:col-span-3 ${status.ok?"text-emerald-700":"text-rose-700"}`}>{status.ok?<CheckCircle2 size={14}/>:<AlertCircle size={14}/ >}{status.text}</p>}
+          {status&&<p className={`flex items-center gap-2 text-xs md:col-span-3 ${status.ok?"text-emerald-700":"text-rose-700"}`}>{status.ok?<CheckCircle2 size={14}/>:<AlertCircle size={14}/>}{status.text}</p>}
         </div>
       </div>
     </section>
