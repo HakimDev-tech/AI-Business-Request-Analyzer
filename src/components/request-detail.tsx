@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { ArrowLeft, ArrowUpRight, Check, CircleAlert, Clock3, FileText, RefreshCw, ShieldCheck } from "lucide-react";
+import { ArrowLeft, Check, Clock3, FileText, RefreshCw, ShieldCheck } from "lucide-react";
 
 type SavedRequest = {
   id: string;
