@@ -74,7 +74,7 @@ export function CatalogIngestPanel() {
   }
 
   return (
-    <main className="page-wrap">
+    <section className="page-wrap">
       <div className="mb-7 flex flex-col justify-between gap-4 xl:flex-row xl:items-end">
         <div>
           <p className="page-kicker mb-4">05 / Retrieval sources</p>
@@ -122,6 +122,6 @@ export function CatalogIngestPanel() {
           <div className="border-t border-[#e1e3e9] bg-[#f7f8fa] px-4 py-3 text-[9px] text-[#858b98]">Supported formats are validated by the ingestion API.</div>
         </section>
       </div>
-    </main>
+    </section>
   );
 }
