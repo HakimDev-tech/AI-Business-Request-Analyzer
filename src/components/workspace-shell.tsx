@@ -12,7 +12,7 @@ const navigation = [
   { href: "/", label: "Overview", icon: LayoutDashboard },
   { href: "/requests", label: "Request history", icon: Archive },
   { href: "/analyzer", label: "New analysis", icon: FilePlus2 },
-  { href: "/catalog", label: "Knowledge base", icon: BookOpen },
+  { href: "/catalog", label: "Catalog & inventory", icon: BookOpen },
 ];
 
 function Brand() {
@@ -85,7 +85,7 @@ function Sidebar({ mobile = false, onClose }: { mobile?: boolean; onClose?: () =
 function pageTitle(pathname: string) {
   if (pathname.startsWith("/analyzer")) return "New analysis";
   if (pathname.startsWith("/requests")) return "Request history";
-  if (pathname.startsWith("/catalog")) return "Knowledge base";
+  if (pathname.startsWith("/catalog")) return "Catalog & inventory";
   return "Overview";
 }
 
