@@ -123,7 +123,7 @@ export function ProductCatalogPanel() {
         <div><p className="page-kicker mb-4">05 / Commercial data</p><h1 className="page-title">Product register.</h1><p className="page-intro mt-3">Maintain the products and available quantities used by catalog matching and stock verification. These are operational records, not uploaded examples.</p></div>
         <div className="flex gap-2">
           <button onClick={() => void loadProducts()} disabled={loading} className="inline-flex h-9 items-center gap-2 border border-[#d5d8e0] bg-white px-3 text-[10px] font-bold text-[#555b69] hover:border-[#365dff] hover:text-[#365dff] disabled:opacity-50"><RefreshCw size={13} className={loading ? "animate-spin" : ""}/> Refresh</button>
-          <Button onClick={() => setShowForm(value => !value)} variant={showForm ? "secondary" : "primary"} size="small">{showForm ? <X size={13}/> : <Plus size={13}/ >}{showForm ? "Close form" : "Add product"}</Button>
+          <Button onClick={() => setShowForm(value => !value)} variant={showForm ? "secondary" : "primary"} size="small">{showForm ? <X size={13}/> : <Plus size={13}/>}{showForm ? "Close form" : "Add product"}</Button>
         </div>
       </div>
 
@@ -146,7 +146,7 @@ export function ProductCatalogPanel() {
           <div><label htmlFor="product-price" className="field-label">Unit price</label><input id="product-price" type="number" min="0" step="0.01" value={price} onChange={event=>setPrice(event.target.value)} className="field-control" placeholder="Optional"/></div>
           <div><label htmlFor="product-currency" className="field-label">Currency</label><input id="product-currency" maxLength={3} minLength={3} value={currency} onChange={event=>setCurrency(event.target.value.toUpperCase())} className="field-control mono"/></div>
           <div><label htmlFor="product-stock" className="field-label">Initial available quantity</label><input id="product-stock" type="number" min="0" step="0.001" required value={quantity} onChange={event=>setQuantity(event.target.value)} className="field-control"/></div>
-          <div className="flex items-end"><Button type="submit" disabled={saving} className="w-full">{saving ? <LoaderCircle size={13} className="animate-spin"/> : <Save size={13}/ >}{saving ? "Creating…" : "Save product"}</Button></div>
+          <div className="flex items-end"><Button type="submit" disabled={saving} className="w-full">{saving ? <LoaderCircle size={13} className="animate-spin"/> : <Save size={13}/>}{saving ? "Creating…" : "Save product"}</Button></div>
         </form>
       </section>}
 
@@ -164,7 +164,7 @@ export function ProductCatalogPanel() {
                 <td className="min-w-[150px] max-w-[260px]"><p className="line-clamp-2 text-[9px] leading-[1.7] text-[#777d8b]">{product.description || "No description"}</p></td>
                 <td className="mono min-w-[100px] text-[9px]">{product.price_amount === null ? "—" : product.price_amount.toFixed(2) + " " + (product.price_currency ?? "")}</td>
                 <td className="min-w-[130px]"><input aria-label={"Available quantity for " + product.name} type="number" min="0" step="0.001" value={current} onChange={event=>setStockDrafts(existing=>({...existing,[product.id]:event.target.value}))} className="h-8 w-[100px] border border-[#dfe1e7] bg-white px-2 text-[10px] outline-none focus:border-[#365dff]"/><span className="ml-2 text-[8px] text-[#888e9a]">{product.unit}</span></td>
-                <td className="text-right"><Button variant="secondary" size="small" disabled={!changed || savingStock === product.id} onClick={()=>void saveStock(product)}>{savingStock === product.id ? <LoaderCircle size={12} className="animate-spin"/> : <Save size={12}/ >}Save</Button></td>
+                <td className="text-right"><Button variant="secondary" size="small" disabled={!changed || savingStock === product.id} onClick={()=>void saveStock(product)}>{savingStock === product.id ? <LoaderCircle size={12} className="animate-spin"/> : <Save size={12}/>}Save</Button></td>
               </tr>;
             })}</tbody>
           </table>
