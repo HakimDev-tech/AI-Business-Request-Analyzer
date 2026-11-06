@@ -64,7 +64,23 @@ export function RequestDetail({ id }: { id: string }) {
       setLoading(false);
     }
   }
-  useEffect(() => { void load(); }, [id]);
+  useEffect(() => {
+    let cancelled = false;
+    async function fetchRecord() {
+      try {
+        const response = await fetch("/api/requests/" + id, { cache: "no-store" });
+        const payload = await response.json();
+        if (!response.ok || !payload.success) throw new Error(payload.error ?? "Record could not be loaded");
+        if (!cancelled) setRecord(payload.request);
+      } catch (cause) {
+        if (!cancelled) setError(cause instanceof Error ? cause.message : "Unable to load this record");
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
+    }
+    void fetchRecord();
+    return () => { cancelled = true; };
+  }, [id]);
 
   if (loading) return <main className="page-wrap"><div className="empty-state"><RefreshCw size={18} className="animate-spin text-[#365dff]"/><p className="mt-3 text-[10px] text-[#7d8390]">Loading saved request…</p></div></main>;
   if (error || !record) return <main className="page-wrap"><Link href="/requests" className="mb-6 inline-flex items-center gap-2 text-[10px] font-bold text-[#365dff]"><ArrowLeft size={13}/> Back to request history</Link><div role="alert" className="border border-[#f0d1ce] bg-[#fff7f6] p-5 text-[11px] text-[#a84b49]">{error || "Record not found"} <button onClick={() => void load()} className="ml-2 underline">Retry</button></div></main>;
