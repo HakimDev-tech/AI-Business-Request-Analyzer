@@ -51,7 +51,6 @@ function DataField({ label, value }: { label: string; value: string | number | n
 export function AnalyzerWorkspace() {
   const [message, setMessage] = useState("");
   const [result, setResult] = useState<AnalysisResult | null>(null);
-  const [conversationId, setConversationId] = useState<string>();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [saved, setSaved] = useState(false);
@@ -67,11 +66,10 @@ export function AnalyzerWorkspace() {
       const response = await fetch("/api/analyze", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: message.trim(), conversationId }),
+        body: JSON.stringify({ message: message.trim(), conversationId: crypto.randomUUID() }),
       });
       const payload = await response.json();
       if (!response.ok || !payload.success) throw new Error(payload.error ?? "Analysis could not be completed");
-      setConversationId(payload.conversationId);
       setResult(payload.result);
       setSaved(Boolean(payload.result.requestId));
     } catch (cause) {
