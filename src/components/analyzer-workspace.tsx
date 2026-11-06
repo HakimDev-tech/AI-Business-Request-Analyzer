@@ -2,10 +2,9 @@
 
 import { useState } from "react";
 import {
-  Activity, ArrowDownRight, ArrowUpRight, Boxes, Check, CheckCircle2,
-  ChevronRight, CircleHelp, ClipboardList, FileText, LoaderCircle,
-  PackageSearch, PanelLeftClose, Send, ShieldCheck, Sparkles, WandSparkles,
-  AlertCircle, Database, Clock3, Menu, X
+  Activity, ArrowUpRight, Boxes, Check, CheckCircle2, CircleHelp, ClipboardList,
+  FileText, LoaderCircle, PackageSearch, ShieldCheck, Sparkles, WandSparkles,
+  AlertCircle, Database, Menu, X
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -197,7 +196,7 @@ export function AnalyzerWorkspace() {
                 {error && <div role="alert" className="mt-4 flex items-start gap-2 rounded-[10px] border border-[#ead1c9] bg-[#fff7f3] p-3 text-[11px] leading-5 text-[#a94f48]"><AlertCircle size={15} className="mt-0.5 shrink-0"/>{error}</div>}
 
                 <div className="mt-5 flex flex-col gap-3 border-t border-[#e6e6df] pt-5 sm:flex-row sm:items-center sm:justify-between">
-                  <div className="flex items-center gap-2 text-[10px] text-[#858e85]"><ShieldCheck size={14} className="text-[#638363}"/> Server-side processing</div>
+                  <div className="flex items-center gap-2 text-[10px] text-[#858e85]"><ShieldCheck size={14} className="text-[#638363]"/> Server-side processing</div>
                   <Button onClick={run} disabled={loading || message.trim().length < 12} className="w-full sm:w-auto">
                     {loading ? <LoaderCircle size={15} className="animate-spin"/> : <WandSparkles size={15}/>}
                     {loading ? "Analyzing request" : "Analyze request"}
