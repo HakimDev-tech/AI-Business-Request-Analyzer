@@ -1,6 +1,6 @@
 # Veyra — Commercial operations intelligence
 
-A workspace for processing B2B customer requests, matching products, checking inventory and retrieving internal commercial knowledge.
+A commercial workspace for processing B2B customer requests, matching products, checking inventory and retrieving internal commercial knowledge.
 
 ## Product workflows
 
@@ -8,8 +8,8 @@ A workspace for processing B2B customer requests, matching products, checking in
 - **New analysis (/analyzer):** submit an original customer message, extract validated requirements, retrieve catalog context, check product availability and save a decision record.
 - **Request history (/requests):** search and filter persisted analyses.
 - **Request record (/requests/[id]):** inspect the source message, extracted fields, decision rationale, catalog matches, stock checks and retrieved evidence.
-- **Catalog & inventory (/catalog):** create product records, set initial stock, update available quantities and view the current product register.
-- **Knowledge library (/catalog):** upload supported commercial documents and inspect indexing status and chunk counts.
+- **Catalog & inventory (/catalog):** create product records, set initial stock, update available quantities and manage knowledge documents.
+- **Private access (/login):** shared workspace password with a signed, expiring, HTTP-only session cookie.
 
 ## Core stack
 
@@ -22,7 +22,7 @@ A workspace for processing B2B customer requests, matching products, checking in
 
 ## Local setup
 
-Use Node.js 22.x. Install dependencies, copy .env.example to .env.local, configure the Gemini and Neon development-branch credentials, then run:
+Use Node.js 22.x. Install dependencies, copy .env.example to .env.local, configure the Gemini and Neon development-branch credentials, configure workspace access, then run:
 
 1. npm install
 2. npm run db:migrate
@@ -38,6 +38,23 @@ Useful checks:
 
 Never commit secrets or expose server credentials through NEXT_PUBLIC variables.
 
+## Required environment variables
+
+- GEMINI_API_KEY — server-side Gemini API key.
+- DATABASE_URL — Neon connection string for the intended environment.
+- WORKSPACE_ACCESS_PASSWORD — strong password for this private workspace instance.
+- WORKSPACE_SESSION_SECRET — random secret of at least 32 characters used to sign session cookies.
+
+Generate a session secret locally, for example:
+
+```bash
+node -e "console.log(require('crypto').randomBytes(32).toString('base64url'))"
+```
+
+Set both workspace access variables in Vercel Environment Variables before deploying this version. Until they are configured, the workspace remains locked and the login page reports the missing configuration. Use different secrets for local development, preview and production. Do not paste the generated value into source control or public issues.
+
+The current login is a **shared-password gate for a private pilot**, not a user account system. It does not provide individual identities, password reset, organization membership, team roles or multi-tenant isolation. Restrict access at the deployment/network layer as an additional control.
+
 ## Data model and decisions
 
 Request records, conversations, products, inventory, documents and vector chunks are stored in PostgreSQL. Each analysis starts a distinct conversation and is persisted with its original customer message. Catalog and stock outcomes are derived from database queries and deterministic application rules; the language model does not invent inventory availability.
@@ -46,14 +63,14 @@ Documents can be uploaded as TXT, MD, CSV, JSON, PDF or DOCX (maximum 10 MB). Ex
 
 ## Visual system
 
-The application uses the Signal Ledger design system: graphite, cobalt and coral signal colors; Space Grotesk, DM Sans and IBM Plex Mono typography; sharp geometry; structured data tables; explicit decision states; and no preloaded sample requests. See DESIGN_SYSTEM.md for the complete design rules.
+The application uses the Signal Ledger design system: graphite, cobalt and coral signal colors; Space Grotesk, DM Sans and IBM Plex Mono typography; sharp geometry; structured data tables; explicit decision states; and no preloaded sample requests. See DESIGN_SYSTEM.md for the design rules.
 
 ## Commercial readiness boundary
 
-This repository now contains real persisted workflows rather than a static demo, but it is **not yet safe to expose publicly as a multi-customer SaaS**.
+This repository now contains persisted operational workflows and a private access gate rather than a static demo. It is **not yet ready to be sold as a public multi-customer SaaS**.
 
-The current backend still uses a single WORKSPACE_ID and does not yet provide end-user authentication, workspace membership, role-based access control or tenant isolation. Several write-capable API routes therefore require access protection before public deployment. Rate limits, audit trails, operational alerts, end-to-end tests, backup/restore procedures and a customer onboarding/billing flow also remain launch requirements.
+The database still uses a single WORKSPACE_ID. Shared-password authentication does not provide end-user accounts, authorization roles, workspace membership or tenant isolation. Login rate limiting, audit logging, backups and restore tests, monitoring/alerting, end-to-end tests, customer onboarding, billing and support operations remain launch requirements.
 
-WORKSPACE_ID is a data-scope setting, not an authentication mechanism. Keep this deployment private until those controls are implemented.
+WORKSPACE_ID is a data-scope setting, not an authentication mechanism. Keep the instance private until a real identity and tenant model has been implemented and tested.
 
 Gemini extracts and interprets. Server-side code validates and decides. Human operators remain responsible for final commercial approval.
