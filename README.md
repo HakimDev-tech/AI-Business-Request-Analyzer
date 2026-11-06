@@ -54,7 +54,7 @@ node -e "console.log(require('crypto').randomBytes(32).toString('base64url'))"
 
 Set both workspace access variables in Vercel Environment Variables before deploying this version. Until they are configured, the workspace remains locked and the login page reports the missing configuration. Use different secrets for local development, preview and production. Do not paste the generated value into source control or public issues.
 
-The current login is a **shared-password gate for a private pilot**, not a user account system. It does not provide individual identities, password reset, organization membership, team roles or multi-tenant isolation. Restrict access at the deployment/network layer as an additional control.
+The current login is a **shared-password gate for a private single-workspace deployment**, not a user account system. It does not provide individual identities, password reset, organization membership, team roles or multi-tenant isolation. Restrict access at the deployment/network layer as an additional control.
 
 ## Data model and decisions
 
@@ -68,7 +68,7 @@ The public product page is the only indexable product surface. It includes a can
 
 ## Visual system
 
-The application uses the Signal Ledger design system: graphite, cobalt and coral signal colors; Space Grotesk, DM Sans and IBM Plex Mono typography; sharp geometry; structured data tables; explicit decision states; and no preloaded sample requests. See DESIGN_SYSTEM.md for the design rules.
+The application uses Veyra Exchange Atelier: deep tidal teal, oxide, brass and mist surfaces; Newsreader, Manrope and IBM Plex Mono typography; an original route-line brand mark; asymmetrical component geometry; evidence-first data tables; and no preloaded sample requests. See DESIGN_SYSTEM.md for the complete design rules.
 
 ## Commercial readiness boundary
 
