@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import { getDb } from "@/db/client";
 import { getEnv } from "@/config/env";
+import { workspaceRequestAuthorized } from "@/lib/workspace-auth";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -16,7 +17,10 @@ const createSchema = z.object({
   available_quantity: z.number().nonnegative().default(0),
 });
 
-export async function GET() {
+export async function GET(request: Request) {
+  if (!workspaceRequestAuthorized(request)) {
+    return NextResponse.json({ success: false, error: "Authentication required" }, { status: 401 });
+  }
   try {
     const result = await getDb().query(
       `SELECT p.id, p.sku, p.name, p.description, p.unit,
@@ -38,6 +42,9 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
+  if (!workspaceRequestAuthorized(request)) {
+    return NextResponse.json({ success: false, error: "Authentication required" }, { status: 401 });
+  }
   const parsed = createSchema.safeParse(await request.json().catch(() => null));
   if (!parsed.success) {
     return NextResponse.json({ success: false, error: "Invalid product details", details: parsed.error.issues }, { status: 400 });
