@@ -99,7 +99,7 @@ export function WorkspaceShell({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     let active = true;
-    if (pathname === "/login") return;
+    if (pathname === "/login" || pathname === "/product") return;
     fetch("/api/auth/session", { cache: "no-store" })
       .then(async response => {
         const payload = await response.json();
