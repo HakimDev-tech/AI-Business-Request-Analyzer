@@ -94,17 +94,12 @@ export function WorkspaceShell({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [database, setDatabase] = useState<"checking" | "connected" | "unavailable">("checking");
-  const [authStatus, setAuthStatus] = useState<"checking" | "authenticated" | "unauthenticated" | "unconfigured" | "unavailable" | "login">("checking");
+  const [authStatus, setAuthStatus] = useState<"checking" | "authenticated" | "unauthenticated" | "unconfigured" | "unavailable">("checking");
   const title = useMemo(() => pageTitle(pathname), [pathname]);
 
   useEffect(() => {
     let active = true;
-    if (pathname === "/login") {
-      setAuthStatus("login");
-      return () => { active = false; };
-    }
-
-    setAuthStatus("checking");
+    if (pathname === "/login") return;
     fetch("/api/auth/session", { cache: "no-store" })
       .then(async response => {
         const payload = await response.json();
