@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
-import pdf from "pdf-parse";
+import { PDFParse } from "pdf-parse";
 import mammoth from "mammoth";
 import { documentInputSchema } from "@/schemas/request.schema";
 import { ingestDocument } from "@/rag/ingest";
@@ -43,8 +43,13 @@ export async function POST(request: Request) {
         content = buffer.toString("utf8");
         sourceType = extension === "csv" ? "csv" : extension === "json" ? "json" : "text";
       } else if (extension === "pdf") {
-        const parsed = await pdf(buffer);
-        content = parsed.text;
+        const parser = new PDFParse({ data: buffer });
+        try {
+          const parsed = await parser.getText();
+          content = parsed.text;
+        } finally {
+          await parser.destroy();
+        }
         sourceType = "pdf";
       } else if (extension === "docx") {
         const parsed = await mammoth.extractRawText({ buffer });
