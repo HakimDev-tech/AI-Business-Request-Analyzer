@@ -51,7 +51,23 @@ export function RequestHistory() {
     }
   }
 
-  useEffect(() => { void load(); }, []);
+  useEffect(() => {
+    let cancelled = false;
+    async function initialLoad() {
+      try {
+        const response = await fetch("/api/requests?limit=100", { cache: "no-store" });
+        const payload = await response.json() as ApiResponse;
+        if (!response.ok || !payload.success) throw new Error("Request history could not be loaded");
+        if (!cancelled) setRequests(payload.requests);
+      } catch (cause) {
+        if (!cancelled) setError(cause instanceof Error ? cause.message : "Unable to reach request history");
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
+    }
+    void initialLoad();
+    return () => { cancelled = true; };
+  }, []);
 
   const filtered = useMemo(() => {
     const term = search.trim().toLowerCase();
