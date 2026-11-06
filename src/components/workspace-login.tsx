@@ -88,7 +88,7 @@ export function WorkspaceLogin() {
             </Button>
           </form>
 
-          <div className="mt-8 border-t border-[#dfe1e7] pt-4 text-[9px] leading-[1.7] text-[#8c92a0]">This instance uses a shared workspace password. Personal accounts, roles and multi-tenant access are not enabled in this pilot build.</div>
+          <div className="mt-8 border-t border-[#dfe1e7] pt-4 text-[9px] leading-[1.7] text-[#8c92a0]">This instance uses a shared workspace password. Personal accounts, roles and multi-tenant access are not enabled in this pilot build. <a href="/product" className="ml-1 font-bold text-[#365dff] underline">About Veyra</a></div>
         </div>
       </section>
     </main>
