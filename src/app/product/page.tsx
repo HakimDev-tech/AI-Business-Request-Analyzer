@@ -77,44 +77,44 @@ export const metadata = {
 
 export default function ProductPage() {
   return (
-    <main className="min-h-screen bg-[#f0f1f4] text-[#171923]">
+    <main className="min-h-screen bg-[#edf2ef] text-[#193738]">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}/>
-      <header className="flex h-[72px] items-center justify-between border-b border-[#dfe1e7] bg-[#fbfbfc] px-5 sm:px-10">
+      <header className="flex h-[72px] items-center justify-between border-b border-[#d6e1dc] bg-[#fffdf9] px-5 sm:px-10">
         <Link href="/product" className="flex items-center gap-3" aria-label="Veyra home">
-          <span className="grid size-9 place-items-center bg-[#171923] text-white">
+          <span className="grid size-9 place-items-center bg-[#193738] text-white">
             <svg viewBox="0 0 28 28" width="22" height="22" fill="none" aria-hidden="true">
               <path d="M4 5h7l7 18h6L17 5h7" stroke="currentColor" strokeWidth="2.3" strokeLinecap="square"/>
-              <path d="M4 23h5" stroke="#ff795c" strokeWidth="2.3"/>
+              <path d="M4 23h5" stroke="#e2ad69" strokeWidth="2.3"/>
             </svg>
           </span>
-          <span className="text-[15px] font-bold tracking-[-.055em]">VEYRA<span className="text-[#ff795c]">/</span></span>
+          <span className="text-[15px] font-bold tracking-[-.055em]">VEYRA<span className="text-[#e2ad69]">/</span></span>
         </Link>
         <div className="flex items-center gap-5">
-          <span className="hidden font-mono text-[8px] uppercase tracking-[.15em] text-[#898e9a] md:block">Commercial operations intelligence</span>
-          <Link href="/login" className="inline-flex h-9 items-center gap-2 bg-[#365dff] px-4 text-[10px] font-bold text-white hover:bg-[#274ce5]">Workspace access <ArrowUpRight size={13}/></Link>
+          <span className="hidden font-mono text-[8px] uppercase tracking-[.15em] text-[#82938d] md:block">Commercial operations intelligence</span>
+          <Link href="/login" className="inline-flex h-9 items-center gap-2 bg-[#bc5034] px-4 text-[10px] font-bold text-white hover:bg-[#943d2b]">Workspace access <ArrowUpRight size={13}/></Link>
         </div>
       </header>
 
-      <section className="relative overflow-hidden bg-[#171923] px-6 py-20 text-white sm:px-12 sm:py-28 lg:px-20">
+      <section className="relative overflow-hidden bg-[#193738] px-6 py-20 text-white sm:px-12 sm:py-28 lg:px-20">
         <div aria-hidden="true" className="pointer-events-none absolute -right-24 top-8 hidden size-[520px] border border-white/[.07] lg:block">
           <div className="absolute inset-10 border border-white/[.07]"/>
           <div className="absolute inset-20 border border-white/[.07]"/>
-          <div className="absolute inset-32 border border-[#365dff]/40"/>
-          <div className="absolute inset-[42%] bg-[#ff795c]"/>
+          <div className="absolute inset-32 border border-[#bc5034]/40"/>
+          <div className="absolute inset-[42%] bg-[#e2ad69]"/>
         </div>
         <div className="relative z-10 max-w-[850px]">
-          <p className="font-mono text-[9px] uppercase tracking-[.2em] text-[#8da4ff]">B2B request intelligence / Veyra</p>
-          <h1 className="mt-7 max-w-[820px] font-[var(--font-space)] text-[clamp(42px,7.5vw,88px)] font-semibold leading-[.94] tracking-[-.075em]">Customer requests.<br/><span className="text-[#8da4ff]">Operational clarity.</span></h1>
-          <p className="mt-8 max-w-[600px] text-[13px] leading-[1.95] text-[#b1b6c3]">Veyra is a commercial operations workspace for teams that receive product inquiries and quotation requests in unstructured messages. It turns those messages into validated requirements, catalog matches, inventory checks and traceable records.</p>
+          <p className="font-mono text-[9px] uppercase tracking-[.2em] text-[#9bc9be]">B2B request intelligence / Veyra</p>
+          <h1 className="mt-7 max-w-[820px] font-[var(--font-editorial)] text-[clamp(42px,7.5vw,88px)] font-semibold leading-[.94] tracking-[-.075em]">Customer requests.<br/><span className="text-[#9bc9be]">Operational clarity.</span></h1>
+          <p className="mt-8 max-w-[600px] text-[13px] leading-[1.95] text-[#b7c8c0]">Veyra is a commercial operations workspace for teams that receive product inquiries and quotation requests in unstructured messages. It turns those messages into validated requirements, catalog matches, inventory checks and traceable records.</p>
           <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-            <Link href="/login" className="inline-flex h-11 items-center justify-center gap-2 bg-[#365dff] px-5 text-[11px] font-bold text-white transition hover:bg-[#274ce5]">Open private workspace <ArrowRight size={14}/></Link>
-            <a href="#workflow" className="inline-flex h-11 items-center justify-center gap-2 border border-white/20 px-5 text-[11px] font-semibold text-[#d6d9e0] hover:bg-white/[.06]">Explore the workflow <ArrowDownGlyph/></a>
+            <Link href="/login" className="inline-flex h-11 items-center justify-center gap-2 bg-[#bc5034] px-5 text-[11px] font-bold text-white transition hover:bg-[#943d2b]">Open private workspace <ArrowRight size={14}/></Link>
+            <a href="#workflow" className="inline-flex h-11 items-center justify-center gap-2 border border-white/20 px-5 text-[11px] font-semibold text-[#d9e4df] hover:bg-white/[.06]">Explore the workflow <ArrowDownGlyph/></a>
           </div>
         </div>
         <div className="relative z-10 mt-20 grid max-w-[860px] gap-px border border-white/10 bg-white/10 sm:grid-cols-3">
-          <div className="bg-[#1d202c] p-4"><p className="font-mono text-[8px] uppercase tracking-[.14em] text-[#858b9b]">01 / Input</p><p className="mt-2 text-[12px] font-semibold">Original customer message</p></div>
-          <div className="bg-[#1d202c] p-4"><p className="font-mono text-[8px] uppercase tracking-[.14em] text-[#858b9b]">02 / Evidence</p><p className="mt-2 text-[12px] font-semibold">Catalog, inventory, documents</p></div>
-          <div className="bg-[#1d202c] p-4"><p className="font-mono text-[8px] uppercase tracking-[.14em] text-[#858b9b]">03 / Record</p><p className="mt-2 text-[12px] font-semibold">Decision and review history</p></div>
+          <div className="bg-[#254544] p-4"><p className="font-mono text-[8px] uppercase tracking-[.14em] text-[#8aa09a]">01 / Input</p><p className="mt-2 text-[12px] font-semibold">Original customer message</p></div>
+          <div className="bg-[#254544] p-4"><p className="font-mono text-[8px] uppercase tracking-[.14em] text-[#8aa09a]">02 / Evidence</p><p className="mt-2 text-[12px] font-semibold">Catalog, inventory, documents</p></div>
+          <div className="bg-[#254544] p-4"><p className="font-mono text-[8px] uppercase tracking-[.14em] text-[#8aa09a]">03 / Record</p><p className="mt-2 text-[12px] font-semibold">Decision and review history</p></div>
         </div>
       </section>
 
@@ -122,19 +122,19 @@ export default function ProductPage() {
         <div className="grid gap-10 lg:grid-cols-[.7fr_1.3fr]">
           <div>
             <p className="page-kicker mb-4">System / 01</p>
-            <h2 className="font-[var(--font-space)] text-[36px] font-semibold leading-[1.02] tracking-[-.06em]">A workflow built around evidence.</h2>
-            <p className="mt-4 text-[11px] leading-[1.85] text-[#737988]">The model is one part of the process. Business data, deterministic checks and human review provide the operational boundaries.</p>
+            <h2 className="font-[var(--font-editorial)] text-[36px] font-semibold leading-[1.02] tracking-[-.06em]">A workflow built around evidence.</h2>
+            <p className="mt-4 text-[11px] leading-[1.85] text-[#6b7d77]">The model is one part of the process. Business data, deterministic checks and human review provide the operational boundaries.</p>
           </div>
-          <div className="divide-y divide-[#dfe1e7] border-y border-[#dfe1e7]">
+          <div className="divide-y divide-[#d6e1dc] border-y border-[#d6e1dc]">
             {capabilities.map(item => {
               const Icon = item.icon;
               return (
                 <article key={item.number} className="grid gap-4 py-6 sm:grid-cols-[44px_1fr]">
                   <div className="flex items-start gap-3 sm:block">
-                    <span className="font-mono text-[9px] text-[#9a9eaa]">{item.number}</span>
-                    <span className="mt-3 hidden size-8 place-items-center border border-[#dfe1e7] bg-[#fbfbfc] text-[#365dff] sm:grid"><Icon size={15}/></span>
+                    <span className="font-mono text-[9px] text-[#8d9b93]">{item.number}</span>
+                    <span className="mt-3 hidden size-8 place-items-center border border-[#d6e1dc] bg-[#fffdf9] text-[#bc5034] sm:grid"><Icon size={15}/></span>
                   </div>
-                  <div><h3 className="text-[14px] font-bold tracking-[-.02em]">{item.title}</h3><p className="mt-2 max-w-[650px] text-[11px] leading-[1.85] text-[#737988]">{item.body}</p></div>
+                  <div><h3 className="text-[14px] font-bold tracking-[-.02em]">{item.title}</h3><p className="mt-2 max-w-[650px] text-[11px] leading-[1.85] text-[#6b7d77]">{item.body}</p></div>
                 </article>
               );
             })}
@@ -142,12 +142,12 @@ export default function ProductPage() {
         </div>
       </section>
 
-      <section className="border-y border-[#dfe1e7] bg-[#fbfbfc] px-6 py-16 sm:px-12 lg:px-20">
+      <section className="border-y border-[#d6e1dc] bg-[#fffdf9] px-6 py-16 sm:px-12 lg:px-20">
         <div className="grid gap-12 lg:grid-cols-2">
           <div>
             <p className="page-kicker mb-4">Controls / 02</p>
-            <h2 className="font-[var(--font-space)] text-[34px] font-semibold leading-[1.05] tracking-[-.06em]">AI assistance without invisible decisions.</h2>
-            <p className="mt-4 max-w-[540px] text-[11px] leading-[1.9] text-[#737988]">Commercial decisions need provenance. Veyra keeps the input, extracted data and database-backed evidence visible so an operator can inspect what the system used.</p>
+            <h2 className="font-[var(--font-editorial)] text-[34px] font-semibold leading-[1.05] tracking-[-.06em]">AI assistance without invisible decisions.</h2>
+            <p className="mt-4 max-w-[540px] text-[11px] leading-[1.9] text-[#6b7d77]">Commercial decisions need provenance. Veyra keeps the input, extracted data and database-backed evidence visible so an operator can inspect what the system used.</p>
           </div>
           <div className="space-y-4">
             {[
@@ -156,7 +156,7 @@ export default function ProductPage() {
               "Inventory availability comes from database queries.",
               "Missing fields and unmatched catalog items remain explicit.",
               "Retrieved document passages are shown as supporting context, not as verified product facts.",
-            ].map((item,index)=><div key={index} className="flex gap-3 border-b border-[#e5e7ec] pb-4"><span className="grid size-6 shrink-0 place-items-center bg-[#e9edff] text-[#365dff]"><Check size={12}/></span><p className="text-[10px] leading-[1.8] text-[#565d6b]">{item}</p></div>)}
+            ].map((item,index)=><div key={index} className="flex gap-3 border-b border-[#e5ece7] pb-4"><span className="grid size-6 shrink-0 place-items-center bg-[#f7e8e0] text-[#bc5034]"><Check size={12}/></span><p className="text-[10px] leading-[1.8] text-[#566f67]">{item}</p></div>)}
           </div>
         </div>
       </section>
@@ -164,22 +164,22 @@ export default function ProductPage() {
       <section className="px-6 py-16 sm:px-12 lg:px-20">
         <div className="mx-auto max-w-[900px]">
           <p className="page-kicker mb-4">Answers / 03</p>
-          <h2 className="font-[var(--font-space)] text-[35px] font-semibold tracking-[-.06em]">Frequently asked questions.</h2>
-          <div className="mt-8 divide-y divide-[#dfe1e7] border-y border-[#dfe1e7]">
-            {faqs.map(item=><article key={item.question} className="py-5"><h3 className="text-[12px] font-bold">{item.question}</h3><p className="mt-2 max-w-[780px] text-[10px] leading-[1.9] text-[#737988]">{item.answer}</p></article>)}
+          <h2 className="font-[var(--font-editorial)] text-[35px] font-semibold tracking-[-.06em]">Frequently asked questions.</h2>
+          <div className="mt-8 divide-y divide-[#d6e1dc] border-y border-[#d6e1dc]">
+            {faqs.map(item=><article key={item.question} className="py-5"><h3 className="text-[12px] font-bold">{item.question}</h3><p className="mt-2 max-w-[780px] text-[10px] leading-[1.9] text-[#6b7d77]">{item.answer}</p></article>)}
           </div>
         </div>
       </section>
 
-      <section className="bg-[#365dff] px-6 py-14 text-white sm:px-12 lg:px-20">
+      <section className="bg-[#bc5034] px-6 py-14 text-white sm:px-12 lg:px-20">
         <div className="flex flex-col justify-between gap-6 md:flex-row md:items-center">
-          <div><p className="font-mono text-[8px] uppercase tracking-[.17em] text-white/70">Private workspace</p><h2 className="mt-3 font-[var(--font-space)] text-[32px] font-semibold tracking-[-.06em]">Bring your actual catalog and requests.</h2><p className="mt-2 text-[10px] text-white/75">The current instance is configured as a single-workspace pilot.</p></div>
-          <Link href="/login" className="inline-flex h-11 items-center justify-center gap-2 bg-[#171923] px-5 text-[10px] font-bold text-white hover:bg-[#242735]">Workspace sign in <ArrowUpRight size={13}/></Link>
+          <div><p className="font-mono text-[8px] uppercase tracking-[.17em] text-white/70">Private workspace</p><h2 className="mt-3 font-[var(--font-editorial)] text-[32px] font-semibold tracking-[-.06em]">Bring your actual catalog and requests.</h2><p className="mt-2 text-[10px] text-white/75">The current instance is configured as a single-workspace pilot.</p></div>
+          <Link href="/login" className="inline-flex h-11 items-center justify-center gap-2 bg-[#193738] px-5 text-[10px] font-bold text-white hover:bg-[#2b4a48]">Workspace sign in <ArrowUpRight size={13}/></Link>
         </div>
       </section>
 
-      <footer className="flex flex-col justify-between gap-3 bg-[#171923] px-6 py-6 text-[#9297a6] sm:flex-row sm:px-12 lg:px-20">
-        <span className="text-[12px] font-bold tracking-[-.04em] text-white">VEYRA<span className="text-[#ff795c]">/</span></span>
+      <footer className="flex flex-col justify-between gap-3 bg-[#193738] px-6 py-6 text-[#8c9b94] sm:flex-row sm:px-12 lg:px-20">
+        <span className="text-[12px] font-bold tracking-[-.04em] text-white">VEYRA<span className="text-[#e2ad69]">/</span></span>
         <span className="text-[9px]">B2B request analysis · Catalog matching · Inventory verification</span>
         <span className="font-mono text-[8px] uppercase tracking-[.1em]">Commercial operations intelligence</span>
       </footer>
