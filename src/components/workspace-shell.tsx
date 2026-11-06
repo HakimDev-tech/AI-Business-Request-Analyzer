@@ -132,7 +132,7 @@ export function WorkspaceShell({ children }: { children: React.ReactNode }) {
     router.replace("/login");
   }
 
-  [object Object]{children}</>;
+  if (pathname === "/login" || pathname === "/product") return <>{children}</>;
 
   if (authStatus !== "authenticated") {
     return (
