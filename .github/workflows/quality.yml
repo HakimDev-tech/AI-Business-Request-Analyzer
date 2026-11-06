@@ -1,0 +1,50 @@
+name: Quality checks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: quality-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
+
+      - name: Type check
+        run: npm run typecheck
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Unit tests
+        run: npm test
+
+      - name: Production build
+        run: npm run build
+        env:
+          GEMINI_API_KEY: ci-build-placeholder
+          DATABASE_URL: postgres://ci:ci@127.0.0.1:5432/ci
+          WORKSPACE_ACCESS_PASSWORD: ci-only-placeholder-password
+          WORKSPACE_SESSION_SECRET: ci-only-placeholder-session-secret-32-chars-minimum
+          DATABASE_SSL: "false"
