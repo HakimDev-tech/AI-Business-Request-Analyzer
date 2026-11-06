@@ -60,5 +60,9 @@ export function workspaceRequestAuthorized(request: Request) {
   const header = request.headers.get("cookie") ?? "";
   const cookie = header.split(";").map(part => part.trim()).find(part => part.startsWith(WORKSPACE_SESSION_COOKIE + "="));
   const token = cookie?.slice(WORKSPACE_SESSION_COOKIE.length + 1);
-  return verifyWorkspaceSession(token ? decodeURIComponent(token) : undefined);
+  try {
+    return verifyWorkspaceSession(token ? decodeURIComponent(token) : undefined);
+  } catch {
+    return false;
+  }
 }
