@@ -6,12 +6,16 @@ import { documentInputSchema } from "@/schemas/request.schema";
 import { ingestDocument } from "@/rag/ingest";
 import { getDb } from "@/db/client";
 import { getEnv } from "@/config/env";
+import { workspaceRequestAuthorized } from "@/lib/workspace-auth";
 
 export const runtime = "nodejs";
 export const maxDuration = 60;
 const MAX_FILE_SIZE = 10 * 1024 * 1024;
 
-export async function GET() {
+export async function GET(request: Request) {
+  if (!workspaceRequestAuthorized(request)) {
+    return NextResponse.json({ success: false, error: "Authentication required" }, { status: 401 });
+  }
   try {
     const result = await getDb().query(
       "SELECT id,title,source_type,status,chunk_count,created_at FROM catalog_documents WHERE workspace_id=$1 ORDER BY created_at DESC LIMIT 50",
@@ -24,6 +28,9 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
+  if (!workspaceRequestAuthorized(request)) {
+    return NextResponse.json({ success: false, error: "Authentication required" }, { status: 401 });
+  }
   try {
     const contentType = request.headers.get("content-type") ?? "";
     let title: string;
