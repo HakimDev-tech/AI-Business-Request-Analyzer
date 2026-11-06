@@ -8,6 +8,7 @@ const space = Space_Grotesk({ variable: "--font-space", subsets: ["latin"], disp
 const plexMono = IBM_Plex_Mono({ variable: "--font-plex-mono", subsets: ["latin"], weight: ["400", "500", "600"], display: "swap" });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.APP_URL || "https://ai-business-request-analyzer.vercel.app"),
   applicationName: "Veyra",
   title: { default: "Veyra — Commercial operations intelligence", template: "%s · Veyra" },
   description: "A commercial operations workspace for B2B request analysis, product matching, inventory checks and searchable business knowledge.",
