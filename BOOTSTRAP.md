@@ -1,1 +1,0 @@
-Temporary repository bootstrap commit; application files follow in the next commit.

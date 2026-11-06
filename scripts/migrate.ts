@@ -1,0 +1,1 @@
+import {readFile} from "node:fs/promises"; import {getDb} from "../src/db/client"; async function main(){await getDb().query(await readFile("src/db/schema.sql","utf8"));console.log("Schema applied");await getDb().end();} main().catch(e=>{console.error(e);process.exit(1)});

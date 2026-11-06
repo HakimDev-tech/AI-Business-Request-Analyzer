@@ -1,0 +1,1 @@
+import { GoogleGenAI } from "@google/genai"; import { getEnv } from "@/config/env"; let client:GoogleGenAI|undefined; export function getGeminiClient(){return client??=new GoogleGenAI({apiKey:getEnv().GEMINI_API_KEY});}
