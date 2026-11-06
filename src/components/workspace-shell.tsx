@@ -4,8 +4,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import {
-  Activity, Archive, ArrowUpRight, BookOpen, Boxes, ChevronRight,
-  Command, FilePlus2, LayoutDashboard, Menu, RadioTower, ShieldCheck, X
+  Archive, ArrowUpRight, BookOpen, ChevronRight, FilePlus2,
+  LayoutDashboard, Menu, ShieldCheck, X
 } from "lucide-react";
 
 const navigation = [
@@ -71,7 +71,7 @@ function Sidebar({ mobile = false, onClose }: { mobile?: boolean; onClose?: () =
       <NavItems onNavigate={onClose}/>
       <div className="mt-auto">
         <div className="border border-white/10 bg-white/[.035] p-3.5">
-          <div className="flex items-center gap-2 text-[9px] font-semibold uppercase tracking-[.14em] text-[#abb0bd]"><ShieldCheck size={13} className="text-[#8da4ff}"/> Decision controls</div>
+          <div className="flex items-center gap-2 text-[9px] font-semibold uppercase tracking-[.14em] text-[#abb0bd]"><ShieldCheck size={13} className="text-[#8da4ff]"/> Decision controls</div>
           <p className="mt-2 text-[10px] leading-[1.7] text-[#8d93a1]">AI extraction is reviewed against catalog records and inventory data before a commercial decision is returned.</p>
         </div>
         <div className="mt-5 flex items-center justify-between px-1 font-mono text-[8px] uppercase tracking-[.12em] text-[#727888]">
