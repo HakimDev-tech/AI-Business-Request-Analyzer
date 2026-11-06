@@ -1,7 +1,7 @@
 "use client";
 
 import { FormEvent, useEffect, useState } from "react";
-import { ArrowDownUp, ArrowUpRight, Boxes, CheckCircle2, CircleAlert, LoaderCircle, Plus, RefreshCw, Save, X } from "lucide-react";
+import { ArrowDownUp, Boxes, CheckCircle2, CircleAlert, LoaderCircle, Plus, RefreshCw, Save, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 type Product = {
@@ -47,7 +47,23 @@ export function ProductCatalogPanel() {
     }
   }
 
-  useEffect(() => { void loadProducts(); }, []);
+  useEffect(() => {
+    let cancelled = false;
+    async function initialLoad() {
+      try {
+        const response = await fetch("/api/products", { cache: "no-store" });
+        const payload = await response.json();
+        if (!response.ok || !payload.success) throw new Error(payload.error ?? "Could not load catalog");
+        if (!cancelled) setProducts(payload.products ?? []);
+      } catch (cause) {
+        if (!cancelled) setError(cause instanceof Error ? cause.message : "Product catalog unavailable");
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
+    }
+    void initialLoad();
+    return () => { cancelled = true; };
+  }, []);
 
   async function createProduct(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
