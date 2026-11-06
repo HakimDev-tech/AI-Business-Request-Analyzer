@@ -62,7 +62,23 @@ export function WorkspaceDashboard() {
     }
   }
 
-  useEffect(() => { void load(); }, []);
+  useEffect(() => {
+    let cancelled = false;
+    async function initialLoad() {
+      try {
+        const response = await fetch("/api/requests?limit=8", { cache: "no-store" });
+        const payload = await response.json();
+        if (!response.ok || !payload.success) throw new Error(payload.error ?? "Could not load workspace");
+        if (!cancelled) setData(payload);
+      } catch (cause) {
+        if (!cancelled) setError(cause instanceof Error ? cause.message : "Workspace data unavailable");
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
+    }
+    void initialLoad();
+    return () => { cancelled = true; };
+  }, []);
 
   const metrics = data?.metrics;
   const reviewCount = metrics ? metrics.clarification + metrics.review + metrics.stock_issues : 0;
