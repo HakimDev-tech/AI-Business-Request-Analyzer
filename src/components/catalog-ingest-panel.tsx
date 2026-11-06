@@ -43,7 +43,23 @@ export function CatalogIngestPanel() {
     }
   }
 
-  useEffect(() => { void loadDocuments(); }, []);
+  useEffect(() => {
+    let cancelled = false;
+    async function initialLoad() {
+      try {
+        const response = await fetch("/api/catalog", { cache: "no-store" });
+        const payload = await response.json();
+        if (!response.ok || !payload.success) throw new Error(payload.error ?? "Could not load documents");
+        if (!cancelled) setDocuments(payload.documents ?? []);
+      } catch (cause) {
+        if (!cancelled) setError(cause instanceof Error ? cause.message : "Document library unavailable");
+      } finally {
+        if (!cancelled) setRefreshing(false);
+      }
+    }
+    void initialLoad();
+    return () => { cancelled = true; };
+  }, []);
 
   async function upload() {
     if (!file || loading) return;
