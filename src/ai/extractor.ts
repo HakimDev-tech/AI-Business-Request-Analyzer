@@ -13,12 +13,8 @@ export async function extractBusinessRequest(message: string) {
     }],
     config: {
       temperature: 0,
-      responseFormat: {
-        text: {
-          mimeType: "application/json",
-          schema: zodToJsonSchema(extractedRequestSchema, { target: "openApi3" }),
-        },
-      },
+      responseMimeType: "application/json",
+      responseSchema: zodToJsonSchema(extractedRequestSchema, { target: "openApi3" }),
     },
   });
   if (!response.text) throw new Error("Gemini returned an empty response");
