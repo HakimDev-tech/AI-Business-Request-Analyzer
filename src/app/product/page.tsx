@@ -67,7 +67,7 @@ export const metadata = {
   title: "B2B request and procurement operations software",
   description: "Veyra structures B2B customer inquiries, matches product catalogs, verifies inventory and stores traceable commercial decision records.",
   alternates: { canonical: "/product" },
-  robots: { index: true, follow: true },
+  robots: { index: true, follow: true, googleBot: { index: true, follow: true } },
   openGraph: {
     type: "website" as const,
     title: "Veyra — B2B commercial operations intelligence",
