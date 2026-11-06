@@ -138,22 +138,22 @@ export function ProductCatalogPanel() {
       <div className="mb-7 flex flex-col justify-between gap-4 xl:flex-row xl:items-end">
         <div><p className="page-kicker mb-4">05 / Commercial data</p><h1 className="page-title">Product register.</h1><p className="page-intro mt-3">Maintain the products and available quantities used by catalog matching and stock verification. These are operational records, not uploaded examples.</p></div>
         <div className="flex gap-2">
-          <button onClick={() => void loadProducts()} disabled={loading} className="inline-flex h-9 items-center gap-2 border border-[#d5d8e0] bg-white px-3 text-[10px] font-bold text-[#555b69] hover:border-[#365dff] hover:text-[#365dff] disabled:opacity-50"><RefreshCw size={13} className={loading ? "animate-spin" : ""}/> Refresh</button>
+          <button onClick={() => void loadProducts()} disabled={loading} className="inline-flex h-9 items-center gap-2 border border-[#d0dcd7] bg-white px-3 text-[10px] font-bold text-[#526660] hover:border-[#bc5034] hover:text-[#bc5034] disabled:opacity-50"><RefreshCw size={13} className={loading ? "animate-spin" : ""}/> Refresh</button>
           <Button onClick={() => setShowForm(value => !value)} variant={showForm ? "secondary" : "primary"} size="small">{showForm ? <X size={13}/> : <Plus size={13}/>}{showForm ? "Close form" : "Add product"}</Button>
         </div>
       </div>
 
       <div className="mb-5 grid gap-3 sm:grid-cols-3">
-        <div className="stat-tile"><p className="stat-label">Active products</p><p className="stat-value">{products.length}</p><p className="mt-2 text-[9px] text-[#8b909d]">Current catalog entries</p></div>
-        <div className="stat-tile"><p className="stat-label">Total available units</p><p className="stat-value">{totalStock.toLocaleString()}</p><p className="mt-2 text-[9px] text-[#8b909d]">Across active inventory</p></div>
-        <div className="stat-tile"><p className="stat-label">Currency coverage</p><p className="stat-value text-[22px]">{Array.from(new Set(products.map(item => item.price_currency).filter(Boolean))).join(" · ") || "—"}</p><p className="mt-2 text-[9px] text-[#8b909d]">Currencies present in catalog</p></div>
+        <div className="stat-tile"><p className="stat-label">Active products</p><p className="stat-value">{products.length}</p><p className="mt-2 text-[9px] text-[#84958e]">Current catalog entries</p></div>
+        <div className="stat-tile"><p className="stat-label">Total available units</p><p className="stat-value">{totalStock.toLocaleString()}</p><p className="mt-2 text-[9px] text-[#84958e]">Across active inventory</p></div>
+        <div className="stat-tile"><p className="stat-label">Currency coverage</p><p className="stat-value text-[22px]">{Array.from(new Set(products.map(item => item.price_currency).filter(Boolean))).join(" · ") || "—"}</p><p className="mt-2 text-[9px] text-[#84958e]">Currencies present in catalog</p></div>
       </div>
 
-      {error && <div role="alert" className="mb-4 flex items-start gap-2 border border-[#f0d1ce] bg-[#fff7f6] p-3 text-[10px] leading-[1.6] text-[#a84b49]"><CircleAlert size={13} className="mt-0.5 shrink-0"/>{error}</div>}
-      {notice && <div role="status" className="mb-4 flex items-center gap-2 border border-[#cde5d6] bg-[#f5fbf7] p-3 text-[10px] text-[#26774c]"><CheckCircle2 size={13}/>{notice}</div>}
+      {error && <div role="alert" className="mb-4 flex items-start gap-2 border border-[#f0d9d0] bg-[#fff7f6] p-3 text-[10px] leading-[1.6] text-[#a94f3e]"><CircleAlert size={13} className="mt-0.5 shrink-0"/>{error}</div>}
+      {notice && <div role="status" className="mb-4 flex items-center gap-2 border border-[#cfdfd5] bg-[#f5fbf7] p-3 text-[10px] text-[#2e7858]"><CheckCircle2 size={13}/>{notice}</div>}
 
       {showForm && <section className="ui-panel mb-4">
-        <div className="ui-panel-header"><div><p className="page-kicker">New record / 001</p><h2 className="ui-panel-title mt-1.5">Create catalog product</h2></div><Boxes size={16} className="text-[#365dff]"/></div>
+        <div className="ui-panel-header"><div><p className="page-kicker">New record / 001</p><h2 className="ui-panel-title mt-1.5">Create catalog product</h2></div><Boxes size={16} className="text-[#bc5034]"/></div>
         <form onSubmit={createProduct} className="grid gap-4 p-5 md:grid-cols-2 xl:grid-cols-4">
           <div><label htmlFor="product-sku" className="field-label">SKU *</label><input id="product-sku" required maxLength={80} value={sku} onChange={event=>setSku(event.target.value)} className="field-control" placeholder="LAP-BIZ-016"/></div>
           <div className="md:col-span-1 xl:col-span-2"><label htmlFor="product-name" className="field-label">Product name *</label><input id="product-name" required maxLength={180} value={name} onChange={event=>setName(event.target.value)} className="field-control" placeholder="Business laptop 16 GB"/></div>
@@ -167,8 +167,8 @@ export function ProductCatalogPanel() {
       </section>}
 
       <section className="ui-panel">
-        <div className="ui-panel-header"><div><p className="page-kicker">Catalog / 002</p><h2 className="ui-panel-title mt-1.5">Active product records <span className="mono ml-1 text-[9px] font-medium text-[#8c91a0]">{products.length}</span></h2><p className="ui-panel-subtitle">Edit available quantities directly. Price and SKU are shown as stored.</p></div><ArrowDownUp size={15} className="text-[#7c8290]"/></div>
-        {loading ? <div className="empty-state"><LoaderCircle size={17} className="animate-spin text-[#365dff]"/><p className="mt-3 text-[10px] text-[#888e9a]">Loading catalog products…</p></div>
+        <div className="ui-panel-header"><div><p className="page-kicker">Catalog / 002</p><h2 className="ui-panel-title mt-1.5">Active product records <span className="mono ml-1 text-[9px] font-medium text-[#899a94]">{products.length}</span></h2><p className="ui-panel-subtitle">Edit available quantities directly. Price and SKU are shown as stored.</p></div><ArrowDownUp size={15} className="text-[#7c8290]"/></div>
+        {loading ? <div className="empty-state"><LoaderCircle size={17} className="animate-spin text-[#bc5034]"/><p className="mt-3 text-[10px] text-[#869790]">Loading catalog products…</p></div>
         : products.length ? <div className="overflow-x-auto">
           <table className="data-table">
             <thead><tr><th>Product / SKU</th><th>Description</th><th>Unit price</th><th>Available stock</th><th></th></tr></thead>
@@ -176,16 +176,16 @@ export function ProductCatalogPanel() {
               const current = stockDrafts[product.id] ?? String(product.available_quantity);
               const changed = stockDrafts[product.id] !== undefined && Number(current) !== Number(product.available_quantity);
               return <tr key={product.id}>
-                <td className="min-w-[170px]"><p className="font-bold text-[#292e3b]">{product.name}</p><p className="mono mt-1 text-[8px] text-[#9297a3]">{product.sku}</p></td>
-                <td className="min-w-[150px] max-w-[260px]"><p className="line-clamp-2 text-[9px] leading-[1.7] text-[#777d8b]">{product.description || "No description"}</p></td>
+                <td className="min-w-[170px]"><p className="font-bold text-[#29413e]">{product.name}</p><p className="mono mt-1 text-[8px] text-[#899a94]">{product.sku}</p></td>
+                <td className="min-w-[150px] max-w-[260px]"><p className="line-clamp-2 text-[9px] leading-[1.7] text-[#6b7d77]">{product.description || "No description"}</p></td>
                 <td className="mono min-w-[100px] text-[9px]">{product.price_amount === null ? "—" : product.price_amount.toFixed(2) + " " + (product.price_currency ?? "")}</td>
-                <td className="min-w-[130px]"><input aria-label={"Available quantity for " + product.name} type="number" min="0" step="0.001" value={current} onChange={event=>setStockDrafts(existing=>({...existing,[product.id]:event.target.value}))} className="h-8 w-[100px] border border-[#dfe1e7] bg-white px-2 text-[10px] outline-none focus:border-[#365dff]"/><span className="ml-2 text-[8px] text-[#888e9a]">{product.unit}</span></td>
+                <td className="min-w-[130px]"><input aria-label={"Available quantity for " + product.name} type="number" min="0" step="0.001" value={current} onChange={event=>setStockDrafts(existing=>({...existing,[product.id]:event.target.value}))} className="h-8 w-[100px] border border-[#d6e1dc] bg-white px-2 text-[10px] outline-none focus:border-[#bc5034]"/><span className="ml-2 text-[8px] text-[#869790]">{product.unit}</span></td>
                 <td className="text-right"><Button variant="secondary" size="small" disabled={!changed || savingStock === product.id} onClick={()=>void saveStock(product)}>{savingStock === product.id ? <LoaderCircle size={12} className="animate-spin"/> : <Save size={12}/>}Save</Button></td>
               </tr>;
             })}</tbody>
           </table>
-        </div> : <div className="empty-state"><span className="empty-symbol"><Boxes size={18}/></span><p className="mt-4 text-[12px] font-bold">No active products</p><p className="mt-2 max-w-[300px] text-[10px] leading-[1.7] text-[#8d93a0]">Add the products your team quotes and fulfills. The analyzer will use these records for catalog matching and stock checks.</p><Button onClick={()=>setShowForm(true)} size="small" className="mt-4"><Plus size={12}/> Add first product</Button></div>}
-        <div className="border-t border-[#e1e3e9] bg-[#f7f8fa] px-4 py-3 text-[9px] text-[#858b98]">Inventory updates are written to the database and are used by subsequent request analyses.</div>
+        </div> : <div className="empty-state"><span className="empty-symbol"><Boxes size={18}/></span><p className="mt-4 text-[12px] font-bold">No active products</p><p className="mt-2 max-w-[300px] text-[10px] leading-[1.7] text-[#899a94]">Add the products your team quotes and fulfills. The analyzer will use these records for catalog matching and stock checks.</p><Button onClick={()=>setShowForm(true)} size="small" className="mt-4"><Plus size={12}/> Add first product</Button></div>}
+        <div className="border-t border-[#d8e2de] bg-[#f7f8fa] px-4 py-3 text-[9px] text-[#858b98]">Inventory updates are written to the database and are used by subsequent request analyses.</div>
       </section>
     </main>
   );
