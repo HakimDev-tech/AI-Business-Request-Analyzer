@@ -110,7 +110,7 @@ export function RequestHistory() {
               <td className="min-w-[100px]">{item.destination || "—"}</td>
               <td><span className={tag(item.decision)}>{labels[item.decision] ?? item.decision}</span></td>
               <td className="min-w-[125px] whitespace-nowrap text-[9px] text-[#7d8390]">{new Intl.DateTimeFormat(undefined,{dateStyle:"medium",timeStyle:"short"}).format(new Date(item.created_at))}</td>
-              <td><Link href={"/requests/" + item.id} className="grid size-7 place-items-center border border-[#e0e2e8] bg-white text-[#777d8b] hover:border-[#365dff] hover:text-[#365dff]} aria-label="Open record"><ArrowUpRight size={13}/></Link></td>
+              <td><Link href={"/requests/" + item.id} className="grid size-7 place-items-center border border-[#e0e2e8] bg-white text-[#777d8b] hover:border-[#365dff] hover:text-[#365dff] aria-label="Open record"><ArrowUpRight size={13}/></Link></td>
             </tr>)}</tbody>
           </table>
         </div> : <div className="empty-state">
