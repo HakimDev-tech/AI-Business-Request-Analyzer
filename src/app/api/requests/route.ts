@@ -13,7 +13,7 @@ export async function GET(request: Request) {
     const workspaceId = getEnv().WORKSPACE_ID;
     const db = getDb();
 
-    const [metricsResult, requestsResult, documentsResult] = await Promise.all([
+    const [metricsResult, requestsResult, documentsResult, catalogResult] = await Promise.all([
       db.query(
         `SELECT
           COUNT(*)::int AS total,
@@ -46,12 +46,21 @@ export async function GET(request: Request) {
         FROM catalog_documents WHERE workspace_id = $1`,
         [workspaceId],
       ),
+      db.query(
+        `SELECT COUNT(*)::int AS products,
+                COALESCE(SUM(i.available_quantity), 0)::float8 AS stock_units
+         FROM catalog_items p
+         LEFT JOIN inventory i ON i.catalog_item_id = p.id AND i.workspace_id = p.workspace_id
+         WHERE p.workspace_id = $1 AND p.is_active = true`,
+        [workspaceId],
+      ),
     ]);
 
     return NextResponse.json({
       success: true,
       metrics: metricsResult.rows[0],
       documents: documentsResult.rows[0],
+      catalog: catalogResult.rows[0],
       requests: requestsResult.rows,
     });
   } catch (error) {
