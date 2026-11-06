@@ -101,7 +101,7 @@ export function CatalogIngestPanel() {
             <p className="mt-2 field-hint">PDF, DOCX, CSV, JSON, Markdown or TXT · 10 MB maximum</p>
             {file && <div className="mt-3 flex items-center justify-between gap-2 border border-[#e1e3e9] bg-[#f7f8fa] p-2.5"><span className="truncate text-[9px] font-semibold">{file.name}</span><span className="mono shrink-0 text-[8px] text-[#858b98]">{(file.size / 1024 / 1024).toFixed(2)} MB</span></div>}
             {status && <p role="status" className={"mt-4 flex items-start gap-2 text-[9px] leading-[1.7] " + (status.ok ? "text-[#27875a]" : "text-[#b14846]")}>{status.ok ? <CheckCircle2 size={13} className="mt-0.5 shrink-0"/> : <AlertCircle size={13} className="mt-0.5 shrink-0"/>}{status.text}</p>}
-            <Button onClick={upload} disabled={!file || loading} className="mt-5 w-full">{loading ? <LoaderCircle size={14} className="animate-spin"/> : <FileUp size={14}/ >}{loading ? "Indexing document…" : "Upload and index"}{!loading && <ArrowUpRight size={13}/>}</Button>
+            <Button onClick={upload} disabled={!file || loading} className="mt-5 w-full">{loading ? <LoaderCircle size={14} className="animate-spin"/> : <FileUp size={14} />}{loading ? "Indexing document…" : "Upload and index"}{!loading && <ArrowUpRight size={13}/>}</Button>
           </div>
           <div className="border-t border-[#e1e3e9] bg-[#f6f7f9] px-5 py-3 text-[9px] leading-[1.7] text-[#818795]">Documents are extracted, segmented and embedded. A failed ingestion remains visible so the issue is not hidden.</div>
         </section>
