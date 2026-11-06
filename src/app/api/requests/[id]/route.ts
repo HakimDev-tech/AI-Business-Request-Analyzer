@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import { getDb } from "@/db/client";
 import { getEnv } from "@/config/env";
+import { workspaceRequestAuthorized } from "@/lib/workspace-auth";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -10,6 +11,9 @@ export async function GET(
   _request: Request,
   context: { params: Promise<{ id: string }> },
 ) {
+  if (!workspaceRequestAuthorized(request)) {
+    return NextResponse.json({ success: false, error: "Authentication required" }, { status: 401 });
+  }
   const { id } = await context.params;
   const parsed = z.string().uuid().safeParse(id);
   if (!parsed.success) {
